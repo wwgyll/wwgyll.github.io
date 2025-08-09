@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tawy 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="js/anti-flicker.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Tawy 2025</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#articles" class="nav-link">文章</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">项目</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 轮播图区域 -->
+    <section id="home" class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="slide active">
+                    <div class="slide-content">
+                        <h1>欢迎来到Tawy的博客</h1>
+                        <p>分享技术知识，记录成长历程</p>
+                        <button class="cta-button">了解更多</button>
+                    </div>
+                    <div class="slide-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-code"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h1>技术分享</h1>
+                        <p>游戏美术、技术美术、游戏开发</p>
+                        <button class="cta-button">查看文章</button>
+                    </div>
+                    <div class="slide-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h1>个人作品</h1>
+                        <p>展示我的开源项目和作品集</p>
+                        <button class="cta-button">查看作品</button>
+                    </div>
+                    <div class="slide-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 轮播图控制按钮 -->
+            <button class="carousel-btn prev-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- 轮播图指示器 -->
+            <div class="carousel-indicators">
+                <span class="indicator active" data-slide="0"></span>
+                <span class="indicator" data-slide="1"></span>
+                <span class="indicator" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我区域 -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-header-container">
+                <!-- 头像和标题将在这里渲染 -->
+            </div>
+            <div class="about-content-container">
+                <!-- 关于我内容将在这里渲染 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章区域 -->
+    <section id="articles" class="articles-section">
+        <div class="container">
+            <h2>最新文章</h2>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <a href="article.html" style="text-decoration: none; color: inherit;">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>现代前端开发最佳实践</h3>
+                            <p>探讨现代前端开发中的最佳实践和设计模式...</p>
+                            <div class="article-meta">
+                                <span class="date">2024-01-15</span>
+                                <span class="category">前端开发</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <article class="article-card">
+                    <a href="javascript-async.html" style="text-decoration: none; color: inherit;">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                <i class="fab fa-js-square"></i>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>JavaScript异步编程深度解析</h3>
+                            <p>深入探讨JavaScript异步编程的核心概念，从回调函数到Promise，再到async/await...</p>
+                            <div class="article-meta">
+                                <span class="date">2024-01-12</span>
+                                <span class="category">JavaScript</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <article class="article-card">
+                    <a href="react-performance.html" style="text-decoration: none; color: inherit;">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                <i class="fab fa-react"></i>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>React性能优化完整指南</h3>
+                            <p>全面深入地探讨React应用的性能优化策略，从基础的渲染优化到高级的代码分割技术...</p>
+                            <div class="article-meta">
+                                <span class="date">2024-01-08</span>
+                                <span class="category">React</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <article class="article-card">
+                    <a href="responsive-design.html" style="text-decoration: none; color: inherit;">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>响应式设计完整指南</h3>
+                            <p>全面介绍响应式设计的核心概念、实现技术和最佳实践...</p>
+                            <div class="article-meta">
+                                <span class="date">2024-01-05</span>
+                                <span class="category">UI/UX</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目区域 -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2>我的项目</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>个人网站</h3>
+                        <p>使用现代前端技术构建的个人展示网站</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>电商平台</h3>
+                        <p>全栈电商解决方案，包含用户管理和支付系统</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="placeholder-image">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>数据可视化工具</h3>
+                        <p>交互式数据可视化分析平台</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我区域 -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>联系我</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>your-email@example.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>github.com/yourusername</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin.com/in/yourusername</span>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="您的姓名" required>
+                        <input type="email" placeholder="您的邮箱" required>
+                        <textarea placeholder="留言内容" rows="5" required></textarea>
+                        <button type="submit">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的个人博客. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script src="js/author-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

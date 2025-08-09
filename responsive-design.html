@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式设计完整指南 - 我的个人博客</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="article.css">
+    <link rel="stylesheet" href="css/force-stable.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="js/anti-flicker.js"></script>
+    <script src="js/related-articles-fix.js"></script>
+    <script src="js/ultimate-fix.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">我的博客</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#articles" class="nav-link">文章</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">项目</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">联系我</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章头部 -->
+    <header class="article-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>/</span>
+                <a href="index.html#articles">文章</a>
+                <span>/</span>
+                <span>响应式设计完整指南</span>
+            </div>
+            <h1 class="article-title">响应式设计完整指南</h1>
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>2024年1月5日</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>UI/UX</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>阅读时间: 10分钟</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye"></i>
+                    <span>浏览: 1,876次</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 文章内容 -->
+    <main class="article-main">
+        <div class="container">
+            <div class="article-layout">
+                <!-- 文章内容 -->
+                <article class="article-content">
+                    <div class="article-summary">
+                        <h2>文章摘要</h2>
+                        <p>全面介绍响应式设计的核心概念、实现技术和最佳实践。从基础的媒体查询到现代的CSS Grid和Flexbox，帮助开发者创建适配所有设备的优秀用户体验。</p>
+                    </div>
+
+                    <div class="article-toc">
+                        <h3>目录</h3>
+                        <ul>
+                            <li><a href="#introduction">1. 响应式设计概述</a></li>
+                            <li><a href="#fundamentals">2. 基础概念</a></li>
+                            <li><a href="#layout-techniques">3. 布局技术</a></li>
+                            <li><a href="#media-queries">4. 媒体查询</a></li>
+                            <li><a href="#images-media">5. 图片和媒体</a></li>
+                            <li><a href="#best-practices">6. 最佳实践</a></li>
+                        </ul>
+                    </div>
+
+                    <section id="introduction">
+                        <h2>1. 响应式设计概述</h2>
+                        <p>响应式设计是一种让网页能够适应不同屏幕尺寸和设备的设计方法。它确保用户在任何设备上都能获得最佳的浏览体验。</p>
+                        
+                        <blockquote>
+                            "响应式设计不仅仅是技术实现，更是一种设计思维的转变。"
+                        </blockquote>
+                        
+                        <h3>1.1 为什么需要响应式设计？</h3>
+                        <ul>
+                            <li><strong>多设备普及</strong>：用户使用各种设备访问网站</li>
+                            <li><strong>SEO友好</strong>：Google优先推荐移动友好的网站</li>
+                            <li><strong>维护成本</strong>：一套代码适配所有设备</li>
+                            <li><strong>用户体验</strong>：提供一致的优质体验</li>
+                        </ul>
+
+                        <h3>1.2 设备分类和断点</h3>
+                        <pre><code class="language-css">/* 常用断点设置 */
+:root {
+  --mobile: 480px;
+  --tablet: 768px;
+  --desktop: 1024px;
+  --large-desktop: 1200px;
+}
+
+/* 移动优先的媒体查询 */
+@media (min-width: 480px) { /* 大屏手机 */ }
+@media (min-width: 768px) { /* 平板 */ }
+@media (min-width: 1024px) { /* 桌面 */ }
+@media (min-width: 1200px) { /* 大屏桌面 */ }</code></pre>
+                    </section>
+
+                    <section id="fundamentals">
+                        <h2>2. 基础概念</h2>
+                        <p>响应式设计的核心是流体布局、灵活图片和媒体查询三个要素。</p>
+                        
+                        <h3>2.1 视口(Viewport)设置</h3>
+                        <pre><code class="language-html">&lt;!-- 基础视口设置 --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+&lt;!-- 禁止用户缩放 --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"&gt;
+
+&lt;!-- 设置最大最小缩放比例 --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0"&gt;</code></pre>
+
+                        <h3>2.2 相对单位的使用</h3>
+                        <pre><code class="language-css">/* 相对单位对比 */
+.container {
+  /* 固定像素 - 不推荐 */
+  width: 960px;
+  font-size: 16px;
+  
+  /* 百分比 - 相对于父元素 */
+  width: 80%;
+  
+  /* em - 相对于当前元素字体大小 */
+  padding: 1em; /* 16px */
+  margin: 0.5em; /* 8px */
+  
+  /* rem - 相对于根元素字体大小 */
+  font-size: 1.2rem; /* 19.2px (如果根字体是16px) */
+  
+  /* vw/vh - 相对于视口 */
+  width: 100vw; /* 视口宽度的100% */
+  height: 50vh; /* 视口高度的50% */
+  
+  /* vmin/vmax - 相对于视口较小/较大的尺寸 */
+  font-size: 4vmin; /* 视口较小尺寸的4% */
+}
+
+/* 响应式字体大小 */
+.responsive-text {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  /* 最小1rem，理想2.5vw，最大2rem */
+}</code></pre>
+
+                        <h3>2.3 流体网格系统</h3>
+                        <pre><code class="language-css">/* 自定义网格系统 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.grid-item {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* 灵活的列布局 */
+.flexible-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* 响应式网格 */
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr; /* 移动端单列 */
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr); /* 平板双列 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr); /* 桌面三列 */
+  }
+}</code></pre>
+                    </section>
+
+                    <section id="layout-techniques">
+                        <h2>3. 布局技术</h2>
+                        <p>现代CSS提供了多种强大的布局技术来实现响应式设计。</p>
+                        
+                        <h3>3.1 Flexbox布局</h3>
+                        <pre><code class="language-css">/* 基础Flex容器 */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.flex-item {
+  flex: 1 1 300px; /* grow shrink basis */
+  min-width: 0; /* 防止内容溢出 */
+}
+
+/* 响应式导航栏 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 卡片布局 */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.card {
+  flex: 1 1 calc(33.333% - 1rem);
+  min-width: 280px;
+  max-width: 400px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}</code></pre>
+
+                        <h3>3.2 CSS Grid布局</h3>
+                        <pre><code class="language-css">/* 复杂的网格布局 */
+.main-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-areas: 
+    "header header header"
+    "sidebar main aside"
+    "footer footer footer";
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 250px 1fr 200px;
+  gap: 1rem;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.aside { grid-area: aside; }
+.footer { grid-area: footer; }
+
+/* 响应式网格调整 */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-areas: 
+      "header header"
+      "main aside"
+      "footer footer";
+    grid-template-columns: 1fr 200px;
+  }
+  .sidebar { display: none; }
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    grid-template-areas: 
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+  .sidebar,
+  .aside { display: none; }
+}
+
+/* 图片画廊网格 */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 1rem;
+}
+
+.gallery-item:nth-child(3n) {
+  grid-column: span 2;
+}
+
+.gallery-item:nth-child(5n) {
+  grid-row: span 2;
+}</code></pre>
+
+                        <h3>3.3 容器查询(Container Queries)</h3>
+                        <pre><code class="language-css">/* 现代容器查询 */
+.card-container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+.card {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+/* 基于容器宽度的样式 */
+@container card (min-width: 300px) {
+  .card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+}
+
+@container card (min-width: 500px) {
+  .card {
+    grid-template-columns: 200px 1fr;
+  }
+  
+  .card-image {
+    width: 200px;
+    height: 150px;
+  }
+}</code></pre>
+                    </section>
+
+                    <section id="media-queries">
+                        <h2>4. 媒体查询</h2>
+                        <p>媒体查询是响应式设计的核心技术，允许我们基于设备特性应用不同的样式。</p>
+                        
+                        <h3>4.1 基础媒体查询</h3>
+                        <pre><code class="language-css">/* 基于屏幕宽度 */
+@media screen and (max-width: 768px) {
+  .desktop-only { display: none; }
+  .mobile-menu { display: block; }
+}
+
+/* 基于设备方向 */
+@media screen and (orientation: landscape) {
+  .landscape-layout { display: flex; }
+}
+
+@media screen and (orientation: portrait) {
+  .portrait-layout { display: block; }
+}
+
+/* 基于设备类型 */
+@media print {
+  .no-print { display: none; }
+  body { color: black; background: white; }
+}
+
+/* 基于分辨率 */
+@media screen and (min-resolution: 2dppx) {
+  .logo {
+    background-image: url('logo@2x.png');
+    background-size: 100px 50px;
+  }
+}
+
+/* 组合条件 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .tablet-specific { display: block; }
+}
+
+/* 逻辑或条件 */
+@media screen and (max-width: 480px), (orientation: portrait) {
+  .mobile-or-portrait { font-size: 14px; }
+}</code></pre>
+
+                        <h3>4.2 高级媒体查询特性</h3>
+                        <pre><code class="language-css">/* 用户偏好检测 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .button {
+    border: 2px solid currentColor;
+    background: transparent;
+  }
+}
+
+/* 悬停能力检测 */
+@media (hover: hover) {
+  .button:hover {
+    background-color: #007bff;
+  }
+}
+
+@media (hover: none) {
+  .button:active {
+    background-color: #007bff;
+  }
+}
+
+/* 指针精度检测 */
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (pointer: fine) {
+  .precise-control {
+    padding: 4px 8px;
+  }
+}</code></pre>
+
+                        <h3>4.3 范围媒体查询</h3>
+                        <pre><code class="language-css">/* 现代范围语法 */
+@media (400px <= width <= 700px) {
+  .medium-screen { display: block; }
+}
+
+/* 等价于传统写法 */
+@media (min-width: 400px) and (max-width: 700px) {
+  .medium-screen { display: block; }
+}
+
+/* 高度范围 */
+@media (height > 600px) {
+  .tall-screen { padding-top: 2rem; }
+}
+
+/* 宽高比 */
+@media (aspect-ratio: 16/9) {
+  .widescreen-layout { display: grid; }
+}
+
+@media (aspect-ratio < 1/1) {
+  .portrait-specific { flex-direction: column; }
+}</code></pre>
+                    </section>
+
+                    <section id="images-media">
+                        <h2>5. 图片和媒体</h2>
+                        <p>响应式图片和媒体是提升用户体验的关键要素。</p>
+                        
+                        <h3>5.1 响应式图片</h3>
+                        <pre><code class="language-html">&lt;!-- 基础响应式图片 --&gt;
+&lt;img src="image-400.jpg" 
+     srcset="image-400.jpg 400w,
+             image-800.jpg 800w,
+             image-1200.jpg 1200w"
+     sizes="(max-width: 400px) 100vw,
+            (max-width: 800px) 50vw,
+            33vw"
+     alt="响应式图片示例"&gt;
+
+&lt;!-- Picture元素 - 艺术指导 --&gt;
+&lt;picture&gt;
+  &lt;source media="(max-width: 480px)" 
+          srcset="mobile-image.jpg"&gt;
+  &lt;source media="(max-width: 768px)" 
+          srcset="tablet-image.jpg"&gt;
+  &lt;source media="(min-width: 769px)" 
+          srcset="desktop-image.jpg"&gt;
+  &lt;img src="desktop-image.jpg" alt="自适应图片"&gt;
+&lt;/picture&gt;
+
+&lt;!-- 现代图片格式 --&gt;
+&lt;picture&gt;
+  &lt;source srcset="image.avif" type="image/avif"&gt;
+  &lt;source srcset="image.webp" type="image/webp"&gt;
+  &lt;img src="image.jpg" alt="现代格式图片"&gt;
+&lt;/picture&gt;</code></pre>
+
+                        <h3>5.2 CSS中的响应式图片</h3>
+                        <pre><code class="language-css">/* 基础响应式图片 */
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 宽高比保持 */
+.aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* 现代浏览器 */
+}
+
+/* 兼容性方案 */
+.aspect-ratio-fallback {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 比例 */
+}
+
+.aspect-ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 背景图片响应式 */
+.hero-section {
+  background-image: url('mobile-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 50vh;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    background-image: url('tablet-bg.jpg');
+    min-height: 60vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    background-image: url('desktop-bg.jpg');
+    min-height: 80vh;
+  }
+}
+
+/* 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 2dppx) {
+  .high-res-bg {
+    background-image: url('image@2x.jpg');
+  }
+}</code></pre>
+
+                        <h3>5.3 响应式视频</h3>
+                        <pre><code class="language-css">/* 响应式视频容器 */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
+  overflow: hidden;
+}
+
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 现代aspect-ratio方案 */
+.modern-video-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.modern-video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}</code></pre>
+
+                        <pre><code class="language-html">&lt;!-- 响应式视频 --&gt;
+&lt;div class="video-container"&gt;
+  &lt;video controls&gt;
+    &lt;source src="video-480p.mp4" media="(max-width: 480px)"&gt;
+    &lt;source src="video-720p.mp4" media="(max-width: 1024px)"&gt;
+    &lt;source src="video-1080p.mp4"&gt;
+    您的浏览器不支持视频播放。
+  &lt;/video&gt;
+&lt;/div&gt;</code></pre>
+                    </section>
+
+                    <section id="best-practices">
+                        <h2>6. 最佳实践</h2>
+                        <p>以下是响应式设计的一些重要最佳实践和技巧。</p>
+                        
+                        <h3>6.1 移动优先策略</h3>
+                        <pre><code class="language-css">/* ✅ 移动优先 - 推荐 */
+.navigation {
+  /* 移动端样式 */
+  display: block;
+  background: #333;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .navigation {
+    /* 平板样式 */
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigation {
+    /* 桌面样式 */
+    padding: 2rem;
+  }
+}
+
+/* ❌ 桌面优先 - 不推荐 */
+.navigation-bad {
+  /* 桌面样式 */
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+@media (max-width: 1023px) {
+  .navigation-bad {
+    /* 需要重置很多样式 */
+    display: block;
+    padding: 1rem;
+  }
+}</code></pre>
+
+                        <h3>6.2 触摸友好设计</h3>
+                        <pre><code class="language-css">/* 触摸目标大小 */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px;
+  margin: 8px;
+  
+  /* 防止意外选择文本 */
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* 触摸反馈 */
+  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+}
+
+/* 按钮间距 */
+.button-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (pointer: coarse) {
+  .button-group {
+    gap: 16px; /* 触摸设备增加间距 */
+  }
+  
+  .button {
+    min-height: 48px;
+    padding: 12px 24px;
+  }
+}
+
+/* 滚动优化 */
+.scroll-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+  scroll-behavior: smooth;
+  
+  /* 滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}</code></pre>
+
+                        <h3>6.3 性能优化</h3>
+                        <pre><code class="language-css">/* 关键CSS内联 */
+/* 将首屏关键样式内联到HTML中 */
+
+/* 非关键CSS延迟加载 */
+/* &lt;link rel="preload" href="non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'"&gt; */
+
+/* 字体优化 */
+@font-face {
+  font-family: 'CustomFont';
+  src: url('font.woff2') format('woff2'),
+       url('font.woff') format('woff');
+  font-display: swap; /* 快速显示备用字体 */
+}
+
+/* 动画性能优化 */
+.animated-element {
+  /* 只动画transform和opacity */
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  
+  /* 硬件加速 */
+  will-change: transform, opacity;
+}
+
+/* 减少重绘重排 */
+.optimized-layout {
+  /* 避免动画width/height */
+  width: 100%;
+  transform: scaleX(0.8); /* 使用transform代替 */
+}
+
+/* 图片懒加载样式 */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}</code></pre>
+
+                        <h3>6.4 调试和测试</h3>
+                        <pre><code class="language-css">/* 调试边框 */
+.debug * {
+  outline: 1px solid red;
+}
+
+.debug .container {
+  outline-color: blue;
+}
+
+.debug .grid {
+  outline-color: green;
+}
+
+/* 断点可视化 */
+body::before {
+  content: 'Mobile';
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  z-index: 9999;
+}
+
+@media (min-width: 768px) {
+  body::before {
+    content: 'Tablet';
+    background: orange;
+  }
+}
+
+@media (min-width: 1024px) {
+  body::before {
+    content: 'Desktop';
+    background: green;
+  }
+}
+
+/* 隐藏生产环境的调试信息 */
+.production body::before {
+  display: none;
+}</code></pre>
+
+                        <h3>6.5 可访问性考虑</h3>
+                        <pre><code class="language-css">/* 跳转链接 */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* 焦点指示器 */
+.focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid;
+  }
+  
+  .button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* 减少动画 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+                    </section>
+
+                    <!-- 文章标签 -->
+                    <div class="article-tags">
+                        <h3>标签</h3>
+                        <div class="tags-list">
+                            <span class="tag">响应式设计</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">移动端</span>
+                            <span class="tag">媒体查询</span>
+                            <span class="tag">UI/UX</span>
+                        </div>
+                    </div>
+
+                    <!-- 分享按钮 -->
+                    <div class="article-share">
+                        <h3>分享文章</h3>
+                        <div class="share-buttons">
+                            <button class="share-btn" data-platform="twitter">
+                                <i class="fab fa-twitter"></i>
+                                Twitter
+                            </button>
+                            <button class="share-btn" data-platform="linkedin">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn
+                            </button>
+                            <button class="share-btn" data-platform="weibo">
+                                <i class="fab fa-weibo"></i>
+                                微博
+                            </button>
+                            <button class="share-btn" data-platform="copy">
+                                <i class="fas fa-link"></i>
+                                复制链接
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 侧边栏 -->
+                <aside class="article-sidebar">
+                    <!-- 作者信息 -->
+                    <div class="author-card">
+                        <div id="author-avatar-container">
+                            <!-- 作者信息将在这里渲染 -->
+                        </div>
+                    </div>
+
+                    <!-- 相关文章 -->
+                    <div class="related-articles" style="opacity: 1 !important; visibility: visible !important; transform: none !important; transition: none !important;">
+                        <h3 style="opacity: 1 !important; visibility: visible !important;">相关文章</h3>
+                        <div class="related-list" style="opacity: 1 !important; visibility: visible !important;">
+                            <article class="related-item" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
+                                <h4 style="opacity: 1 !important; visibility: visible !important;"><a href="article.html" style="opacity: 1 !important; visibility: visible !important;">现代前端开发最佳实践</a></h4>
+                                <span class="related-date" style="opacity: 1 !important; visibility: visible !important;">2024-01-15</span>
+                            </article>
+                            <article class="related-item" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
+                                <h4 style="opacity: 1 !important; visibility: visible !important;"><a href="react-performance.html" style="opacity: 1 !important; visibility: visible !important;">React性能优化完整指南</a></h4>
+                                <span class="related-date" style="opacity: 1 !important; visibility: visible !important;">2024-01-08</span>
+                            </article>
+                            <article class="related-item" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
+                                <h4 style="opacity: 1 !important; visibility: visible !important;"><a href="javascript-async.html" style="opacity: 1 !important; visibility: visible !important;">JavaScript异步编程深度解析</a></h4>
+                                <span class="related-date" style="opacity: 1 !important; visibility: visible !important;">2024-01-12</span>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- 目录导航 -->
+                    <div class="toc-sidebar">
+                        <h3>文章目录</h3>
+                        <ul class="toc-list">
+                            <li><a href="#introduction" class="toc-link">响应式设计概述</a></li>
+                            <li><a href="#fundamentals" class="toc-link">基础概念</a></li>
+                            <li><a href="#layout-techniques" class="toc-link">布局技术</a></li>
+                            <li><a href="#media-queries" class="toc-link">媒体查询</a></li>
+                            <li><a href="#images-media" class="toc-link">图片和媒体</a></li>
+                            <li><a href="#best-practices" class="toc-link">最佳实践</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- 评论区域 -->
+    <section class="comments-section">
+        <div class="container">
+            <h2>评论 (6)</h2>
+            
+            <!-- 评论表单 -->
+            <div class="comment-form">
+                <h3>发表评论</h3>
+                <form>
+                    <div class="form-row">
+                        <input type="text" placeholder="您的姓名" required>
+                        <input type="email" placeholder="您的邮箱" required>
+                    </div>
+                    <textarea placeholder="您的评论..." rows="4" required></textarea>
+                    <button type="submit">发表评论</button>
+                </form>
+            </div>
+
+            <!-- 评论列表 -->
+            <div class="comments-list">
+                <div class="comment">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">UI设计师</span>
+                            <span class="comment-date">2024-01-06 11:20</span>
+                        </div>
+                        <p>非常全面的响应式设计指南！特别是容器查询的部分，这是未来的趋势。移动优先的策略讲解很到位👍</p>
+                        <div class="comment-actions">
+                            <button class="reply-btn">回复</button>
+                            <button class="like-btn"><i class="fas fa-thumbs-up"></i> 15</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">前端新手</span>
+                            <span class="comment-date">2024-01-06 16:45</span>
+                        </div>
+                        <p>终于搞懂了媒体查询的各种用法！以前总是搞不清楚断点怎么设置，现在明白了。收藏了！</p>
+                        <div class="comment-actions">
+                            <button class="reply-btn">回复</button>
+                            <button class="like-btn"><i class="fas fa-thumbs-up"></i> 9</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment reply">
+                    <div class="comment-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">作者</span>
+                            <span class="comment-date">2024-01-06 18:30</span>
+                            <span class="author-badge">作者</span>
+                        </div>
+                        <p>@前端新手 很高兴能帮到你！响应式设计确实需要多实践，建议从简单的布局开始练习。</p>
+                        <div class="comment-actions">
+                            <button class="reply-btn">回复</button>
+                            <button class="like-btn"><i class="fas fa-thumbs-up"></i> 5</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的个人博客. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/author-data.js"></script>
+    <script src="script.js"></script>
+    <script src="article.js"></script>
+</body>
+</html>
