@@ -14,8 +14,8 @@ const CarouselConfig = {
         },
         {
             id: 2,
-            title: "技术分享",
-            description: "游戏美术、技术美术、游戏开发",
+            title: "资源分享",
+            description: "UnityShader、美术工具、美术资产",
             buttonText: "查看文章",
             buttonLink: "#articles",
             image: "imags/bg02.png",
