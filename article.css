@@ -335,6 +335,18 @@
 
 .author-card .profile-avatar {
     margin: 0 auto;
+    position: relative;
+}
+
+.author-card .profile-avatar .avatar-image {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.author-card .profile-avatar .avatar-placeholder {
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 /* 保持原有的头像样式作为备用 */

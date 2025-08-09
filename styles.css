@@ -649,6 +649,50 @@ h2::after {
     color: #ffd700;
 }
 
+/* 二维码样式 */
+.qr-code-item {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.qr-code-container {
+    margin-top: 0.5rem;
+    margin-left: 2.3rem;
+}
+
+.qr-code-placeholder {
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 215, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.qr-code-placeholder:hover {
+    border-color: #ffd700;
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.qr-code-placeholder i {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 0.5rem;
+}
+
+.qr-code-placeholder p {
+    font-size: 0.8rem;
+    color: #fff;
+    margin: 0;
+    text-align: center;
+}
+
 .contact-form {
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
@@ -805,6 +849,20 @@ h2::after {
     .articles-grid,
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* 移动端二维码样式 */
+    .qr-code-placeholder {
+        width: 100px;
+        height: 100px;
+    }
+
+    .qr-code-placeholder i {
+        font-size: 1.5rem;
+    }
+
+    .qr-code-placeholder p {
+        font-size: 0.7rem;
     }
 
     h2 {

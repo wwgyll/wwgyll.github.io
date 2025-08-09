@@ -6,9 +6,9 @@ const AuthorData = {
         // 主头像路径
         main: "imags/tawy.png",
         // 备用头像路径（如果主头像加载失败）
-        fallback: "imags/default-avatar.png",
+        fallback: "imags/tawy.png",
         // 头像描述
-        alt: "我的头像"
+        alt: "Tawy"
     },
     profession: "游戏开发工程师",
     description: "我是一名热爱游戏的开发者，专注于游戏美术、技术美术、游戏开发。在这个博客中，我会分享我的学习心得、技术经验和项目作品。",
@@ -52,7 +52,8 @@ class AvatarPathHelper {
             case 'home':
                 return avatarFile;
             case 'article':
-                return `../${avatarFile}`;
+                // 文章页面在根目录，头像文件也在根目录的imags文件夹下
+                return avatarFile;
             default:
                 return avatarFile;
         }
@@ -78,7 +79,7 @@ class AvatarPathHelper {
                 <img src="${mainPath}" 
                      alt="${altText}" 
                      class="avatar-image"
-                     style="opacity: 1 !important; visibility: visible !important;">
+                     style="opacity: 1 !important; visibility: visible !important; display: block !important;">
                 <div class="avatar-placeholder" style="opacity: 0 !important; visibility: hidden !important;">
                     <i class="fas fa-user"></i>
                 </div>
@@ -200,10 +201,8 @@ class AuthorComponent {
         
         targetElement.innerHTML = html;
         
-        // 添加渲染完成的类，触发CSS显示动画
-        setTimeout(() => {
-            targetElement.classList.add('component-loaded');
-        }, 10);
+        // 立即添加渲染完成的类，触发CSS显示动画
+        targetElement.classList.add('component-loaded');
         
         console.log(`✅ 作者组件渲染成功: ${componentType} -> ${targetSelector}`);
         
@@ -225,8 +224,24 @@ class AuthorComponent {
             avatarPlaceholder.style.opacity = '0';
             avatarPlaceholder.style.visibility = 'hidden';
             
-            // 禁用load事件处理，避免闪烁
-            console.log('🛡️ 头像已强制稳定，禁用动态变化');
+            // 确保头像图片正确加载
+            if (avatarImage.complete) {
+                console.log('🛡️ 头像已加载完成');
+            } else {
+                avatarImage.addEventListener('load', function() {
+                    console.log('🛡️ 头像加载完成');
+                    this.style.opacity = '1';
+                    this.style.visibility = 'visible';
+                });
+                
+                avatarImage.addEventListener('error', function() {
+                    console.log('❌ 头像加载失败，显示占位符');
+                    this.style.opacity = '0';
+                    this.style.visibility = 'hidden';
+                    avatarPlaceholder.style.opacity = '1';
+                    avatarPlaceholder.style.visibility = 'visible';
+                });
+            }
             
             // 添加头像点击效果
             avatarImage.addEventListener('click', function() {
@@ -256,14 +271,14 @@ class AuthorComponent {
         }
         
         // 文章页面作者卡片
-        const authorContainers = document.querySelectorAll('#author-avatar-container');
-        authorContainers.forEach((container, index) => {
-            console.log(`📍 找到文章页面作者容器 ${index + 1}`);
+        const authorContainer = document.querySelector('#author-avatar-container');
+        if (authorContainer) {
+            console.log('📍 找到文章页面作者容器');
             
             // 根据页面URL确定页面类型
             const pageType = this.getPageType();
-            this.render('author-card', `#author-avatar-container`, pageType);
-        });
+            this.render('author-card', '#author-avatar-container', pageType);
+        }
     }
     
     /**
