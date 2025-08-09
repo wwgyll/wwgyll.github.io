@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React性能优化完整指南 - Tawy2025</title>
+    <title></title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="article.css">
     <link rel="stylesheet" href="css/force-stable.css">
@@ -11,6 +11,14 @@
     <script src="js/anti-flicker.js"></script>
     <script src="js/related-articles-fix.js"></script>
     <script src="js/ultimate-fix.js"></script>
+    <script src="js/site-config.js"></script>
+    <script>
+        // 页面加载完成后设置标题和导航栏标题
+        document.addEventListener('DOMContentLoaded', function() {
+            TitleGenerator.setPageTitle('article', 'react-performance');
+            NavigationGenerator.setNavigationTitle(false);
+        });
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
 </head>
 <body>

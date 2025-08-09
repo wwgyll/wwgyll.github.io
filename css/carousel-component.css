@@ -1,0 +1,416 @@
+/* 轮播图组件样式 */
+
+/* 轮播图容器 */
+.carousel-section {
+    margin-top: 80px;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 幻灯片样式 */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    color: white;
+}
+
+.slide.active {
+    opacity: 1;
+    animation: fadeInContent 0.8s ease-out;
+}
+
+.slide.active .slide-content {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.slide.active .slide-image {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* 幻灯片内容 */
+.slide-content {
+    flex: 1;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slide-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.slide-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.cta-button:hover {
+    background: white;
+    color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* 幻灯片图片区域 */
+.slide-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* 图片容器 - 使用最强的选择器 */
+.slide-image-container,
+.carousel-section .slide-image-container,
+#carousel-container .slide-image-container,
+#carousel-container .carousel-section .slide-image-container,
+#carousel-container .carousel-section .slide-image .slide-image-container,
+.slide-image .slide-image-container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    cursor: pointer;
+}
+
+.slide-image-container:hover,
+.carousel-section .slide-image-container:hover,
+#carousel-container .slide-image-container:hover,
+#carousel-container .carousel-section .slide-image-container:hover,
+#carousel-container .carousel-section .slide-image .slide-image-container:hover,
+.slide-image .slide-image-container:hover {
+    /* 悬停效果已移除 */
+}
+
+.slide-image-file,
+.carousel-section .slide-image-file,
+#carousel-container .slide-image-file,
+#carousel-container .carousel-section .slide-image-file,
+#carousel-container .carousel-section .slide-image .slide-image-file,
+.slide-image .slide-image-file {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.slide-image-file:hover,
+.carousel-section .slide-image-file:hover,
+#carousel-container .slide-image-file:hover,
+#carousel-container .carousel-section .slide-image-file:hover,
+#carousel-container .carousel-section .slide-image .slide-image-file:hover,
+.slide-image .slide-image-file:hover {
+    transform: scale(1.05);
+}
+
+/* 占位符图片 - 使用最强的选择器 */
+.placeholder-image,
+.carousel-section .placeholder-image,
+#carousel-container .placeholder-image,
+#carousel-container .carousel-section .placeholder-image,
+#carousel-container .carousel-section .slide-image .placeholder-image,
+.slide-image .placeholder-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    cursor: pointer;
+}
+
+.placeholder-image:hover,
+.carousel-section .placeholder-image:hover,
+#carousel-container .placeholder-image:hover,
+#carousel-container .carousel-section .placeholder-image:hover,
+#carousel-container .carousel-section .slide-image .placeholder-image:hover,
+.slide-image .placeholder-image:hover {
+    /* 悬停效果已移除 */
+}
+
+.placeholder-image i,
+.carousel-section .placeholder-image i,
+#carousel-container .placeholder-image i,
+#carousel-container .carousel-section .placeholder-image i,
+#carousel-container .carousel-section .slide-image .placeholder-image i,
+.slide-image .placeholder-image i {
+    font-size: 6rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.placeholder-image:hover i,
+.carousel-section .placeholder-image:hover i,
+#carousel-container .placeholder-image:hover i,
+#carousel-container .carousel-section .placeholder-image:hover i,
+#carousel-container .carousel-section .slide-image .placeholder-image:hover i,
+.slide-image .placeholder-image:hover i {
+    transform: scale(1.1);
+}
+
+/* 轮播图控制按钮 */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+/* 轮播图指示器 */
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* 动画效果 */
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+    .slide {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .slide-content {
+        margin-bottom: 2rem;
+    }
+    
+    .slide-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .slide-image {
+        margin-top: 2rem;
+    }
+    
+    .slide-image-container,
+    .placeholder-image,
+    .carousel-section .slide-image-container,
+    .carousel-section .placeholder-image,
+    #carousel-container .slide-image-container,
+    #carousel-container .placeholder-image,
+    #carousel-container .carousel-section .slide-image-container,
+    #carousel-container .carousel-section .placeholder-image,
+    #carousel-container .carousel-section .slide-image .slide-image-container,
+    #carousel-container .carousel-section .slide-image .placeholder-image,
+    .slide-image .slide-image-container,
+    .slide-image .placeholder-image {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .slide-image-container:hover,
+    .placeholder-image:hover,
+    .carousel-section .slide-image-container:hover,
+    .carousel-section .placeholder-image:hover,
+    #carousel-container .slide-image-container:hover,
+    #carousel-container .placeholder-image:hover,
+    #carousel-container .carousel-section .slide-image-container:hover,
+    #carousel-container .carousel-section .placeholder-image:hover,
+    #carousel-container .carousel-section .slide-image .slide-image-container:hover,
+    #carousel-container .carousel-section .slide-image .placeholder-image:hover,
+    .slide-image .slide-image-container:hover,
+    .slide-image .placeholder-image:hover {
+        transform: scale(1.05) !important;
+    }
+    
+    .placeholder-image i,
+    .carousel-section .placeholder-image i,
+    #carousel-container .placeholder-image i,
+    #carousel-container .carousel-section .placeholder-image i,
+    #carousel-container .carousel-section .slide-image .placeholder-image i,
+    .slide-image .placeholder-image i {
+        font-size: 4rem;
+    }
+    
+    .carousel-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .prev-btn {
+        left: 15px;
+    }
+    
+    .next-btn {
+        right: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slide-content h1 {
+        font-size: 2rem;
+    }
+    
+    .slide-content p {
+        font-size: 1.1rem;
+    }
+    
+    .slide-image-container,
+    .placeholder-image,
+    .carousel-section .slide-image-container,
+    .carousel-section .placeholder-image,
+    #carousel-container .slide-image-container,
+    #carousel-container .placeholder-image,
+    #carousel-container .carousel-section .slide-image-container,
+    #carousel-container .carousel-section .placeholder-image,
+    #carousel-container .carousel-section .slide-image .slide-image-container,
+    #carousel-container .carousel-section .slide-image .placeholder-image,
+    .slide-image .slide-image-container,
+    .slide-image .placeholder-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .slide-image-container:hover,
+    .placeholder-image:hover,
+    .carousel-section .slide-image-container:hover,
+    .carousel-section .placeholder-image:hover,
+    #carousel-container .slide-image-container:hover,
+    #carousel-container .placeholder-image:hover,
+    #carousel-container .carousel-section .slide-image-container:hover,
+    #carousel-container .carousel-section .placeholder-image:hover,
+    #carousel-container .carousel-section .slide-image .slide-image-container:hover,
+    #carousel-container .carousel-section .slide-image .placeholder-image:hover,
+    .slide-image .slide-image-container:hover,
+    .slide-image .placeholder-image:hover {
+        transform: scale(1.05) !important;
+    }
+    
+    .placeholder-image i,
+    .carousel-section .placeholder-image i,
+    #carousel-container .placeholder-image i,
+    #carousel-container .carousel-section .placeholder-image i,
+    #carousel-container .carousel-section .slide-image .placeholder-image i,
+    .slide-image .placeholder-image i {
+        font-size: 3rem;
+    }
+    
+    .carousel-indicators {
+        bottom: 20px;
+    }
+    
+    .indicator {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* 所有悬停效果已移除 */

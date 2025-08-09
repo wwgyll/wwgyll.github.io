@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>现代前端开发最佳实践 - Tawy2025</title>
+    <title></title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="article.css">
     <link rel="stylesheet" href="css/force-stable.css">
@@ -11,6 +11,26 @@
     <script src="js/anti-flicker.js"></script>
     <script src="js/related-articles-fix.js"></script>
     <script src="js/ultimate-fix.js"></script>
+    <script src="js/site-config.js"></script>
+    <script>
+        // 页面加载完成后设置标题和导航栏标题
+        document.addEventListener('DOMContentLoaded', function() {
+            // 根据当前页面URL确定文章类型
+            const path = window.location.pathname;
+            let articleSlug = 'modern-frontend'; // 默认文章
+            
+            if (path.includes('javascript-async')) {
+                articleSlug = 'javascript-async';
+            } else if (path.includes('react-performance')) {
+                articleSlug = 'react-performance';
+            } else if (path.includes('responsive-design')) {
+                articleSlug = 'responsive-design';
+            }
+            
+            TitleGenerator.setPageTitle('article', articleSlug);
+            NavigationGenerator.setNavigationTitle(false);
+        });
+    </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
 </head>
 <body>
@@ -18,7 +38,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="index.html">Tawy2025</a>
+                <a href="index.html">Tawy 2025</a>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">

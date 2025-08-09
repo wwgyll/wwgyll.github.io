@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tawy 2025</title>
+    <title></title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/carousel-component.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="js/anti-flicker.js"></script>
+    <script src="js/site-config.js"></script>
+    <script src="js/carousel-component.js"></script>
+    <script>
+        // 页面加载完成后设置标题和导航栏标题
+        document.addEventListener('DOMContentLoaded', function() {
+            TitleGenerator.setPageTitle('home');
+            NavigationGenerator.setNavigationTitle(true);
+            
+            // 初始化轮播图组件
+            new CarouselComponent('carousel-container');
+        });
+    </script>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -40,64 +53,8 @@
         </div>
     </nav>
 
-    <!-- 轮播图区域 -->
-    <section id="home" class="carousel-section">
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="slide active">
-                    <div class="slide-content">
-                        <h1>欢迎来到Tawy的博客</h1>
-                        <p>分享技术知识，记录成长历程</p>
-                        <button class="cta-button">了解更多</button>
-                    </div>
-                    <div class="slide-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-code"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <h1>技术分享</h1>
-                        <p>游戏美术、技术美术、游戏开发</p>
-                        <button class="cta-button">查看文章</button>
-                    </div>
-                    <div class="slide-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <h1>个人作品</h1>
-                        <p>展示我的开源项目和作品集</p>
-                        <button class="cta-button">查看作品</button>
-                    </div>
-                    <div class="slide-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 轮播图控制按钮 -->
-            <button class="carousel-btn prev-btn" id="prevBtn">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next-btn" id="nextBtn">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            
-            <!-- 轮播图指示器 -->
-            <div class="carousel-indicators">
-                <span class="indicator active" data-slide="0"></span>
-                <span class="indicator" data-slide="1"></span>
-                <span class="indicator" data-slide="2"></span>
-            </div>
-        </div>
-    </section>
+    <!-- 轮播图组件容器 -->
+    <div id="carousel-container"></div>
 
     <!-- 关于我区域 -->
     <section id="about" class="about-section">
