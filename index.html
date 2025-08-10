@@ -53,6 +53,7 @@
         </div>
     </nav>
 
+    <div id="pjax-root">
     <!-- 轮播图组件容器 -->
     <div id="carousel-container"></div>
 
@@ -74,7 +75,7 @@
             <h2>最新文章</h2>
             <div class="articles-grid">
                 <article class="article-card">
-                    <a href="article.html" style="text-decoration: none; color: inherit;">
+                    <a href="article.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
                         <div class="article-image">
                             <div class="placeholder-image">
                                 <i class="fas fa-newspaper"></i>
@@ -110,7 +111,7 @@
                 </article> -->
                 
                 <article class="article-card">
-                    <a href="react-performance.html" style="text-decoration: none; color: inherit;">
+                    <a href="react-performance.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
                         <div class="article-image">
                             <div class="placeholder-image">
                                 <i class="fab fa-react"></i>
@@ -128,7 +129,7 @@
                 </article>
                 
                 <article class="article-card">
-                    <a href="responsive-design.html" style="text-decoration: none; color: inherit;">
+                    <a href="responsive-design.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
                         <div class="article-image">
                             <div class="placeholder-image">
                                 <i class="fas fa-mobile-alt"></i>
@@ -153,7 +154,7 @@
         <div class="container">
             <h2>我的分享</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" onclick="window.open('projects.html','_blank','noopener');" style="cursor:pointer;">
                     <div class="project-image">
                         <div class="placeholder-image">
                             <i class="fas fa-globe"></i>
@@ -170,7 +171,7 @@
                     </div>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card" onclick="window.open('tools.html','_blank','noopener');" style="cursor:pointer;">
                     <div class="project-image">
                         <div class="placeholder-image">
                             <i class="fas fa-shopping-cart"></i>
@@ -187,7 +188,7 @@
                     </div>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card" onclick="window.open('assets.html','_blank','noopener');" style="cursor:pointer;">
                     <div class="project-image">
                         <div class="placeholder-image">
                             <i class="fas fa-chart-bar"></i>
@@ -245,12 +246,17 @@
         </div>
     </section>
 
+    </div>
+
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Tawy的个人博客. 保留所有权利.</p>
         </div>
     </footer>
+
+    <!-- 全局背景音乐（静音自动播放，确保各浏览器策略允许） -->
+    <audio id="bgm" src="audio/bgm.mp3" preload="auto" loop autoplay muted playsinline></audio>
 
     <script src="js/author-data.js"></script>
     <script src="script.js"></script>

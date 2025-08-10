@@ -1,3 +1,43 @@
+// 提前自动播放（不依赖 DOMContentLoaded）
+(function earlyAutoPlay(){
+    try {
+        let audio = document.getElementById('bgm');
+        if (!audio) {
+            audio = document.createElement('audio');
+            audio.id = 'bgm';
+            audio.src = 'audio/bgm.mp3';
+            audio.preload = 'auto';
+            audio.loop = true;
+            audio.muted = true; // 先静音，提升自动播放成功率
+            audio.autoplay = true;
+            audio.setAttribute('autoplay', '');
+            audio.setAttribute('playsinline', '');
+            document.addEventListener('readystatechange', function onr(){
+                if (document.readyState !== 'loading') {
+                    document.removeEventListener('readystatechange', onr);
+                    document.body.appendChild(audio);
+                }
+            });
+            if (document.readyState !== 'loading') {
+                document.body.appendChild(audio);
+            }
+        }
+        const tryPlay = () => { audio.play().catch(()=>{}); };
+        tryPlay();
+        // 媒体就绪与页面可见时重试
+        ['canplay','canplaythrough','loadeddata'].forEach(evt => audio.addEventListener(evt, tryPlay, { once: true }));
+        const onVis = () => { if (!document.hidden) { tryPlay(); document.removeEventListener('visibilitychange', onVis); } };
+        document.addEventListener('visibilitychange', onVis);
+        // 快速多次重试
+        let attempts = 0;
+        const timer = setInterval(() => {
+            if (!audio.paused) { clearInterval(timer); return; }
+            tryPlay();
+            if (++attempts >= 12) clearInterval(timer);
+        }, 250);
+    } catch (e) {}
+})();
+
 // 等待DOM加载完成
 document.addEventListener('DOMContentLoaded', function() {
     // 移动端导航菜单
@@ -239,6 +279,140 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 头像功能现在由 author-data.js 统一管理
 
+    // 背景音乐控制（每页快速续播，无弹窗）
+    (function initBgm() {
+        ensureBgmDom();
+        const audio = document.getElementById('bgm') || createAudio();
+        const toggle = document.getElementById('bgm-toggle');
+        const statusText = document.getElementById('bgm-status');
+        if (!audio || !toggle || !statusText) return;
+
+        const savedEnabled = sessionStorage.getItem('bgm:enabled');
+        let enabled = savedEnabled === null ? true : savedEnabled === 'true';
+        const savedTime = parseFloat(sessionStorage.getItem('bgm:time') || '0');
+        if (!Number.isNaN(savedTime) && isFinite(savedTime)) {
+            try { audio.currentTime = Math.max(0, savedTime - 0.15); } catch(e) {}
+        }
+        try { if (audio.volume == null) audio.volume = 0.6; } catch(e) {}
+
+        updateUI();
+        attemptAutoPlay();
+        // 异步播放状态变化后再同步一次UI
+        setTimeout(updateUI, 300);
+
+        const unlock = () => {
+            if (enabled) {
+                audio.muted = false;
+                audio.play().catch(() => {
+                    audio.muted = true;
+                    audio.play().catch(() => {});
+                });
+            }
+            ['click','touchstart','pointerdown','mousedown','keydown','wheel'].forEach(evt =>
+                document.removeEventListener(evt, unlock, true)
+            );
+            updateUI();
+        };
+        ['click','touchstart','pointerdown','mousedown','keydown','wheel'].forEach(evt =>
+            document.addEventListener(evt, unlock, { capture: true, once: true })
+        );
+
+        toggle.addEventListener('click', function(){
+            enabled = !enabled;
+            sessionStorage.setItem('bgm:enabled', String(enabled));
+            if (enabled) {
+                audio.muted = false;
+                audio.play().catch(() => {
+                    audio.muted = true;
+                    audio.play().catch(() => {});
+                });
+            } else {
+                audio.pause();
+            }
+            updateUI();
+        });
+
+        audio.addEventListener('timeupdate', saveTime);
+        window.addEventListener('beforeunload', saveTime);
+        ;['play','pause','playing','ended','volumechange','loadeddata','canplay','canplaythrough'].forEach(evt => {
+            audio.addEventListener(evt, updateUI);
+        });
+
+        function saveTime(){
+            try { sessionStorage.setItem('bgm:time', String(audio.currentTime || 0)); } catch(e) {}
+        }
+        function updateUI(){
+            const playing = enabled && !audio.paused;
+            statusText.textContent = playing ? '关闭音乐' : '开启音乐';
+            toggle.setAttribute('aria-pressed', String(playing));
+        }
+        function attemptAutoPlay(){
+            if (!enabled) return;
+            // 强制设置为可自动播放的状态
+            audio.autoplay = true;
+            try { audio.setAttribute('autoplay', ''); } catch(e) {}
+            audio.muted = true; // 先静音，保证大多数浏览器允许自动播放
+
+            const tryPlay = () => { audio.play().catch(() => {}); };
+
+            // 立即尝试一次
+            tryPlay();
+            updateUI();
+
+            // 资源就绪后再尝试
+            ['canplay', 'canplaythrough', 'loadeddata'].forEach(evt => {
+                audio.addEventListener(evt, tryPlay, { once: true });
+            });
+
+            // 标签激活时再尝试
+            const onVis = () => {
+                if (!document.hidden) { tryPlay(); document.removeEventListener('visibilitychange', onVis); updateUI(); }
+            };
+            document.addEventListener('visibilitychange', onVis);
+
+            // 页面完全加载后再尝试
+            window.addEventListener('load', () => { tryPlay(); updateUI(); }, { once: true });
+
+            // 定时重试，最多重试 10 次，每 500ms 一次
+            let attempts = 0;
+            const timer = setInterval(() => {
+                if (!enabled || !audio.paused) { clearInterval(timer); updateUI(); return; }
+                tryPlay(); updateUI();
+                if (++attempts >= 10) clearInterval(timer);
+            }, 500);
+        }
+
+        // 移除了任何提示 UI，不打扰用户
+        function ensureBgmDom(){
+            if (document.getElementById('bgm-toggle')) return;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'music-player';
+            wrapper.id = 'music-player';
+            wrapper.title = '背景音乐';
+            wrapper.innerHTML = `
+                <button id="bgm-toggle" aria-label="播放/暂停背景音乐">
+                    <i class="fas fa-music"></i>
+                    <span id="bgm-status">开启音乐</span>
+                </button>
+            `;
+            document.body.appendChild(wrapper);
+        }
+        function createAudio(){
+            let el = document.getElementById('bgm');
+            if (el) return el;
+            el = document.createElement('audio');
+            el.id = 'bgm';
+            el.src = 'audio/bgm.mp3';
+            el.preload = 'auto';
+            el.loop = true;
+            el.muted = true; // 默认静音提升自动播成功率
+            el.autoplay = true;
+            el.setAttribute('autoplay','');
+            el.setAttribute('playsinline', '');
+            document.body.appendChild(el);
+            return el;
+        }
+    })();
     // CTA按钮点击效果
     const ctaButtons = document.querySelectorAll('.cta-button');
     ctaButtons.forEach(button => {
