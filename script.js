@@ -180,19 +180,28 @@ document.addEventListener('DOMContentLoaded', function() {
     startAutoPlay();
 
     // 平滑滚动到锚点
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offsetTop = target.offsetTop - 80; // 考虑固定导航栏高度
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+    document.addEventListener('click', function (e) {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        const a = t.closest('a[href^="#"]');
+        if (!a) return;
+        // 让轮播图自己的处理优先
+        if (a.classList && a.classList.contains('cta-button')) return;
+        e.preventDefault();
+        const hash = (a.getAttribute('href') || '').trim();
+        if (!hash || hash === '#') return;
+        const target = hash ? document.querySelector(hash) : null;
+        if (target) {
+            const navbar = document.querySelector('.navbar');
+            const navH = navbar && navbar.offsetHeight ? navbar.offsetHeight : 80;
+            const rect = target.getBoundingClientRect();
+            const top = (window.pageYOffset || document.documentElement.scrollTop || 0) + rect.top - navH;
+            window.scrollTo({ top, behavior: 'smooth' });
+            if (typeof history !== 'undefined' && history.pushState) {
+                history.pushState(null, '', hash);
             }
-        });
-    });
+        }
+    }, true);
 
     // 滚动时导航栏效果
     let lastScrollTop = 0;

@@ -17,7 +17,7 @@ const CarouselConfig = {
             title: "资源分享",
             description: "UnityShader、美术工具、美术资产",
             buttonText: "查看文章",
-            buttonLink: "#articles",
+            buttonLink: "#projects",
             image: "imags/bg02.png",
             fallbackIcon: "fas fa-laptop-code",
             background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
@@ -111,6 +111,8 @@ class CarouselComponent {
         `;
         
         this.container.innerHTML = carouselHTML;
+        // 渲染完成后，强制同步一遍CTA链接，防止外部脚本覆盖
+        this.syncCTALinks();
     }
     
     /**
@@ -120,12 +122,18 @@ class CarouselComponent {
         const isActive = index === 0 ? 'active' : '';
         const imageHTML = this.generateImageHTML(slide);
         
+        // 生成CTA：锚点用站内跳转，其他链接新标签打开
+        const isAnchor = typeof slide.buttonLink === 'string' && slide.buttonLink.charAt(0) === '#';
+        const ctaHTML = isAnchor
+            ? `<a class="cta-button" href="${slide.buttonLink}">${slide.buttonText}</a>`
+            : `<a class="cta-button" href="${slide.buttonLink}" target="_blank" rel="noopener">${slide.buttonText}</a>`;
+
         return `
             <div class="slide ${isActive}" data-slide-id="${slide.id}" style="background: ${slide.background}">
                 <div class="slide-content">
                     <h1>${slide.title}</h1>
                     <p>${slide.description}</p>
-                    <button class="cta-button" data-link="${slide.buttonLink}">${slide.buttonText}</button>
+                    ${ctaHTML}
                 </div>
                 <div class="slide-image">
                     ${imageHTML}
@@ -229,21 +237,18 @@ class CarouselComponent {
             carouselContainer.addEventListener('mouseleave', () => this.startAutoPlay());
         }
         
-        // CTA按钮事件
-        const ctaButtons = this.container.querySelectorAll('.cta-button');
-        ctaButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const link = button.getAttribute('data-link');
-                if (!link) return;
-                if (link.startsWith('#')) {
-                    e.preventDefault();
-                    this.scrollToSection(link);
-                } else {
-                    // 外部/页面链接，默认新标签页打开，避免打断当前页音乐
-                    e.preventDefault();
-                    window.open(link, '_blank', 'noopener');
-                }
-            });
+        // CTA为<a>时仅处理锚点平滑滚动，其它链接保持默认新标签行为
+        this.container.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!(target instanceof Element)) return;
+            const a = target.closest('a.cta-button');
+            if (!a || !this.container.contains(a)) return;
+            const href = a.getAttribute('href') || '';
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.scrollToSection(href);
+            }
         });
         
         // 悬停效果已移除
@@ -361,9 +366,10 @@ class CarouselComponent {
         slides.forEach(slide => slide.classList.remove('active'));
         indicators.forEach(indicator => indicator.classList.remove('active'));
         
-        // 设置当前幻灯片为活动状态
+        // 设置当前幻灯片为活动状态，并校正CTA链接
         if (slides[index]) {
             slides[index].classList.add('active');
+            this.syncCTALinks();
         }
         if (indicators[index]) {
             indicators[index].classList.add('active');
@@ -372,6 +378,36 @@ class CarouselComponent {
         this.currentSlide = index;
         
         // 悬停效果已移除
+    }
+
+    /**
+     * 同步所有幻灯片CTA链接为配置中的buttonLink
+     */
+    syncCTALinks() {
+        try {
+            const slideEls = this.container.querySelectorAll('.slide');
+            slideEls.forEach((slideEl, index) => {
+                let cfg = this.config.slides[index];
+                if (!cfg) {
+                    const sid = slideEl.getAttribute('data-slide-id');
+                    cfg = this.config.slides.find(s => String(s.id) === String(sid));
+                }
+                const a = slideEl.querySelector('a.cta-button');
+                if (!cfg || !a) return;
+                const href = (cfg.buttonLink || '').trim();
+                if (!href) return;
+                a.setAttribute('href', href);
+                if (href.charAt(0) === '#') {
+                    a.removeAttribute('target');
+                    a.removeAttribute('rel');
+                } else {
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener');
+                }
+            });
+        } catch(e) {
+            console.warn('syncCTALinks error', e);
+        }
     }
     
     /**
@@ -439,12 +475,23 @@ class CarouselComponent {
      */
     scrollToSection(selector) {
         const target = document.querySelector(selector);
-        if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+        if (!target) return;
+        // 计算导航高度
+        const navbar = document.querySelector('.navbar');
+        const navH = navbar && navbar.offsetHeight ? navbar.offsetHeight : 80;
+        const rect = target.getBoundingClientRect();
+        const top = (window.pageYOffset || document.documentElement.scrollTop || 0) + rect.top - navH;
+        try {
+            window.scrollTo({ top, behavior: 'smooth' });
+            // 同步URL哈希
+            if (typeof history !== 'undefined' && history.pushState) {
+                history.pushState(null, '', selector);
+            } else {
+                location.hash = selector;
+            }
+        } catch (_) {
+            // 兜底
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
     
