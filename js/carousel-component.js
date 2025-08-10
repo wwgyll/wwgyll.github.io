@@ -27,7 +27,7 @@ const CarouselConfig = {
             title: "个人作品",
             description: "展示我的开源项目和作品集",
             buttonText: "查看作品",
-            buttonLink: "#projects",
+            buttonLink: "game/game.html",
             image: "imags/bg03.png",
             fallbackIcon: "fas fa-rocket",
             background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
@@ -234,9 +234,14 @@ class CarouselComponent {
         ctaButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 const link = button.getAttribute('data-link');
-                if (link && link.startsWith('#')) {
+                if (!link) return;
+                if (link.startsWith('#')) {
                     e.preventDefault();
                     this.scrollToSection(link);
+                } else {
+                    // 外部/页面链接，默认新标签页打开，避免打断当前页音乐
+                    e.preventDefault();
+                    window.open(link, '_blank', 'noopener');
                 }
             });
         });
