@@ -1,266 +1,175 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0f14">
+    <meta name="description" content="全屏视频背景的现代网页模板，含移动端回退和无障碍优化">
+    <title>Tawy 2025</title>
+    <link rel="preload" as="image" href="assets/poster.svg" imagesrcset="assets/poster.svg">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="css/carousel-component.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="js/site-config.js"></script>
-    <script src="js/carousel-component.js?v=20250810-2"></script>
-    <script>
-        // 页面加载完成后设置标题和导航栏标题
-        document.addEventListener('DOMContentLoaded', function() {
-            TitleGenerator.setPageTitle('home');
-            NavigationGenerator.setNavigationTitle(true);
-            
-            // 初始化轮播图组件
-            new CarouselComponent('carousel-container');
-        });
-    </script>
 </head>
+
+
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
+    <header class="site-header" role="banner">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">Tawy 2025</a>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">首页</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">关于我</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#articles" class="nav-link">文章</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">分享</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">联系我</a>
-                </li>
-                <li class="nav-item">
-                    <a href="game/game.html" class="nav-link" target="_blank" rel="noopener">MiniGame</a>
-                </li>
-            </ul>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <a class="brand" href="#start"><img src="assets/tawy.png" class="brand-logo" alt="Tawy" aria-hidden="true" width="20" height="20"> TAWY 2025</a>
+            <nav class="nav" aria-label="主导航">
+                <a href="#start">首页</a>
+                <a href="#features">文章</a>
+                <a href="#assets">资源</a>
+                <a href="#introduction">简介</a>
+                <a href="#contact">联系</a>
+                <a href="#MiniGame">MiniGame</a>
+            </nav>
+            <button class="music-btn header-music" id="music-toggle" type="button" aria-pressed="false" title="播放/暂停背景音乐">音乐</button>
         </div>
-    </nav>
-
-    <div id="pjax-root">
-    <!-- 轮播图组件容器 -->
-    <div id="carousel-container"></div>
-
-    <!-- 关于我区域 -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-header-container">
-                <!-- 头像和标题将在这里渲染 -->
-            </div>
-            <div class="about-content-container">
-                <!-- 关于我内容将在这里渲染 -->
-            </div>
-        </div>
-    </section>
-
-    <!-- 文章区域 -->
-    <section id="articles" class="articles-section">
-        <div class="container">
-            <h2>最新文章</h2>
-            <div class="articles-grid">
-                <article class="article-card">
-                    <a href="game/game.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
-                        <div class="article-image">
-                            <div class="placeholder-image">
-                                <i class="fas fa-newspaper"></i>
-                            </div>
-                        </div>
-                        <div class="article-content">
-                            <h3>MiniGame 2025</h3>
-                            <p>充满趣味的小游戏开发</p>
-                            <div class="article-meta">
-                                <span class="date">2025-08-10</span>
-                                <span class="category">MiniGame</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                
-                <!-- <article class="article-card">
-                    <a href="javascript-async.html" style="text-decoration: none; color: inherit;">
-                        <div class="article-image">
-                            <div class="placeholder-image">
-                                <i class="fab fa-js-square"></i>
-                            </div>
-                        </div>
-                        <div class="article-content">
-                            <h3>JavaScript异步编程深度解析</h3>
-                            <p>深入探讨JavaScript异步编程的核心概念，从回调函数到Promise，再到async/await...</p>
-                            <div class="article-meta">
-                                <span class="date">2025-08-09</span>
-                                <span class="category">JavaScript</span>
-                            </div>
-                        </div>
-                    </a>
-                </article> -->
-                
-                <article class="article-card">
-                    <a href="react-performance.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
-                        <div class="article-image">
-                            <div class="placeholder-image">
-                                <i class="fab fa-react"></i>
-                            </div>
-                        </div>
-                        <div class="article-content">
-                            <h3>React性能优化完整指南</h3>
-                            <p>全面深入地探讨React应用的性能优化策略，从基础的渲染优化到高级的代码分割技术...</p>
-                            <div class="article-meta">
-                                <span class="date">2025-08-09</span>
-                                <span class="category">React</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-                
-                <article class="article-card">
-                    <a href="responsive-design.html" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
-                        <div class="article-image">
-                            <div class="placeholder-image">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                        </div>
-                        <div class="article-content">
-                            <h3>响应式设计完整指南</h3>
-                            <p>全面介绍响应式设计的核心概念、实现技术和最佳实践...</p>
-                            <div class="article-meta">
-                                <span class="date">2025-08-09</span>
-                                <span class="category">UI/UX</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- 项目区域 -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2>我的分享</h2>
-            <div class="projects-grid">
-                <a class="project-card" href="http://116.62.71.67:3000" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">
-                    <div class="project-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>着色器分享</h3>
-                        <p>Unity Shader 效果分享</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Unity</span>
-                            <span class="tech-tag">Shader</span>
-                            <span class="tech-tag">HLSL</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a class="project-card" href="http://116.62.71.67:3000" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">
-                    <div class="project-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>工具分享</h3>
-                        <p>游戏开发工具分享</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C#</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Blender</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a class="project-card" href="http://116.62.71.67:3000" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">
-                    <div class="project-image">
-                        <div class="placeholder-image">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>资产分享</h3>
-                        <p>游戏美术资产分享</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">2D</span>
-                            <span class="tech-tag">3D</span>
-                            <span class="tech-tag">Blender</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 联系我区域 -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>联系我</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>1149365152@qq.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-qq"></i>
-                        <span>1149365152</span>
-                    </div>
-                    
-                    <div class="contact-item qr-code-item">
-                        <i class="fab fa-weixin"></i>
-                        <div class="qr-code-container">
-                            <div class="qr-code-placeholder">
-                                <i class="fab fa-weixin"></i>
-                                <p>微信二维码</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="您的姓名" required>
-                        <input type="email" placeholder="您的邮箱" required>
-                        <textarea placeholder="留言内容" rows="5" required></textarea>
-                        <button type="submit">发送消息</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    </header>
+    <audio id="bg-audio" preload="metadata" loop autoplay muted playsinline>
+        <source src="assets/music.ogg" type="audio/ogg">
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+    <!-- 背景视频层：无障碍上标记为装饰性 -->
+    <div class="video-background" aria-hidden="true">
+        <video id="bg-video" class="video" autoplay muted loop playsinline preload="metadata" poster="assets/poster.svg">
+            <source src="assets/video.webm" type="video/webm">
+            <source src="assets/video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
     </div>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Tawy的个人博客. 保留所有权利.</p>
+    <!-- 主内容层：放置你的站点内容 -->
+    <main class="content" id="start" role="main">
+        <h1>TAWY 2025</h1>
+        <p>愿我们每个人都能在茫茫人海中找到真正属于自己的那份温暖与感动。</p>
+        <div class="cta-row">
+            <a class="cta-btn" href="#features">立即探索</a>
+            <a class="cta-btn secondary" href="game/game.html" target="_blank" rel="noopener">游戏Dmeo</a>
         </div>
+    </main>
+
+    <section class="more" id="features">
+        <div class="container">
+            <h2>文章</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>流畅运镜，生动自然</h3>
+                    <p>动效连贯自然，可控运镜与速度变化，创作更具表现力。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>从首帧到尾帧，精准掌控</h3>
+                    <p>支持输入首帧/尾帧，提升可控性，高效生成高质量素材。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>中文创作，得心应手</h3>
+                    <p>更强语义理解，按中文提示词准确把握你的需求。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 绘画（AI绘画 梦境成真） -->
+    <section class="painting" id="assets">
+        <div class="container">
+            <h2>游戏 · 资源分享</h2>
+            <p class="section-desc">最幸福的事莫过于坦然面对每一个挑战并从中成长。</p>
+            <div class="gallery-grid">
+                <a class="gallery-card card-link" href="http://116.62.71.67:3000/" target="_blank" rel="noopener">
+                    <div class="gallery-thumb"><img class="gallery-img" src="assets/tawy.png" alt="Shader"></div><p>Shader</p>
+                </a>
+                <a class="gallery-card card-link" href="pages/gallery-photoreal.html" target="_blank" rel="noopener">
+                    <div class="gallery-thumb"><img class="gallery-img" src="assets/tawy.png" alt="引擎插件"></div><p>引擎插件</p>
+                </a>
+                <a class="gallery-card card-link" href="pages/gallery-future.html" target="_blank" rel="noopener">
+                    <div class="gallery-thumb"><img class="gallery-img" src="assets/tawy.png" alt="美术资产"></div><p>美术资产</p>
+                </a>
+                <a class="gallery-card card-link" href="pages/gallery-renaissance.html" target="_blank" rel="noopener">
+                    <div class="gallery-thumb"><img class="gallery-img" src="assets/tawy.png" alt="视频教程"></div><p>视频教程</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 智能画布（多图AI融合） -->
+    <section class="canvas" id="introduction">
+        <div class="container">
+            <h2>关于 丨 TAWY</h2>
+            <div class="canvas-grid">
+                <div class="canvas-info">
+                    <ul class="about-list">
+                        <li>我是一名热爱游戏的开发者，专注于游戏美术和技术美术。</li>
+                        <li> 在这个博客中，我会分享我的学习心得、技术经验和项目作品。</li>
+                        <li>欢迎与我交流技术话题，共同学习进步！</li>
+                    </ul>
+                </div>
+                <div class="canvas-illustration"><img class="canvas-img" src="assets/tawy.png" alt="示例图片"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社区（创意灵感） -->
+    <section class="community" id="MiniGame">
+        <div class="container">
+            <h2>创意涌动 · 灵感绽放</h2>
+            <div class="community-grid">
+                <a class="community-card card-link" href="game/game.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>游戏Demo测试</p></a>
+                <a class="community-card card-link" href="pages/game-iceclimber.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>雪山兄弟</p></a>
+                <a class="community-card card-link" href="pages/game-maplestory.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>冒险岛</p></a>
+                <a class="community-card card-link" href="pages/game-metal-slug.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>合金弹头</p></a>
+                <a class="community-card card-link" href="pages/game-tank.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>坦克大战</p></a>
+                <a class="community-card card-link" href="pages/game-fruit-ninja.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>水果忍者</p></a>
+                <a class="community-card card-link" href="pages/game-contra.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>魂斗罗</p></a>
+                <a class="community-card card-link" href="pages/game-pvz.html" target="_blank" rel="noopener"><div class="avatar"><img class="avatar-img" src="assets/tawy.png" alt=""></div><p>植物大战僵尸</p></a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>联系方式</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>邮箱</h3>
+                    <p><a href="mailto:1149365152@qq.com.com">1149365152@qq.com</a></p>
+                </div>
+                <div class="contact-card">
+                    <h3>QQ</h3>
+                    <p><a href="tel:+8613800000000">1149365152</a></p>
+                </div>
+                <div class="contact-card">
+                    <h3>社交</h3>
+                    <p>
+                        <a href="#" rel="nofollow noopener">微信</a>
+                        ·
+                        <a href="#" rel="nofollow noopener">微博</a>
+                        ·
+                        <a href="#" rel="nofollow noopener">GitHub</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="footer">
+        <p>© <span id="year"></span> Tawy 个人主页</p>
     </footer>
 
-    <!-- 全局背景音乐（静音自动播放，确保各浏览器策略允许） -->
-    <audio id="bgm" src="audio/bgm.mp3" preload="auto" loop autoplay muted playsinline></audio>
+    <!-- 无脚本回退：使用海报图作为背景 -->
+    <noscript>
+        <style>
+            .video-background{display:none!important}
+            body{background: #0b0f14 url('assets/poster.svg') center/cover no-repeat fixed}
+        </style>
+    </noscript>
 
-    <script src="js/author-data.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
+
+
 </html>
+
+

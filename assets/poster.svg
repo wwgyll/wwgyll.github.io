@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0f14"/>
+      <stop offset="1" stop-color="#0f1722"/>
+    </linearGradient>
+    <radialGradient id="r" cx="60%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#5ad2ff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0b0f14" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <circle cx="720" cy="180" r="420" fill="url(#r)"/>
+  <g fill="none" stroke="#7c5cff" stroke-opacity="0.18">
+    <path d="M0 520 Q 300 460 600 520 T 1200 520"/>
+    <path d="M0 560 Q 300 500 600 560 T 1200 560"/>
+    <path d="M0 600 Q 300 540 600 600 T 1200 600"/>
+  </g>
+  <text x="50%" y="58%" text-anchor="middle" font-family="Segoe UI, Roboto, Arial" font-size="44" fill="#dbe6f3" opacity="0.9">视频背景</text>
+</svg>
+
