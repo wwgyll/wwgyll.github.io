@@ -1,21 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
-  <defs>
-    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#0b0f14"/>
-      <stop offset="1" stop-color="#0f1722"/>
-    </linearGradient>
-    <radialGradient id="r" cx="60%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#5ad2ff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#0b0f14" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="1200" height="675" fill="url(#g)"/>
-  <circle cx="720" cy="180" r="420" fill="url(#r)"/>
-  <g fill="none" stroke="#7c5cff" stroke-opacity="0.18">
-    <path d="M0 520 Q 300 460 600 520 T 1200 520"/>
-    <path d="M0 560 Q 300 500 600 560 T 1200 560"/>
-    <path d="M0 600 Q 300 540 600 600 T 1200 600"/>
+<svg width="1200" height="675" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient y2="1" y1="0" x2="1" x1="0" id="g">
+   <stop stop-color="#0b0f14" offset="0"/>
+   <stop stop-color="#0f1722" offset="1"/>
+  </linearGradient>
+  <radialGradient r="70%" cy="30%" cx="60%" id="r">
+   <stop stop-opacity="0.18" stop-color="#5ad2ff" offset="0%"/>
+   <stop stop-opacity="0" stop-color="#0b0f14" offset="100%"/>
+  </radialGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_1" fill="url(#g)" height="675" width="1200"/>
+  <path id="svg_2" d="m720,600c-232.0442,0 -420,-187.9558 -420,-420c0,-232.0442 187.9558,-420 420,-420c232.0442,0 420,187.9558 420,420c0,232.0442 -187.9558,420 -420,420z" opacity="undefined" fill="url(#r)"/>
+  <g id="svg_3" stroke-opacity="0.18" stroke="#7c5cff" fill="none">
+   <path id="svg_4" d="m0,520q300,-60 600,0t600,0"/>
+   <path id="svg_5" d="m0,560q300,-60 600,0t600,0"/>
+   <path id="svg_6" d="m0,600q300,-60 600,0t600,0"/>
   </g>
-  <text x="50%" y="58%" text-anchor="middle" font-family="Segoe UI, Roboto, Arial" font-size="44" fill="#dbe6f3" opacity="0.9">视频背景</text>
+  <text style="cursor: move;" fill-opacity="0.08" id="svg_7" opacity="0.9" fill="#174a84" font-size="44" font-family="Segoe UI, Roboto, Arial" text-anchor="middle" y="391.5" x="601">Tawy 2025</text>
+ </g>
 </svg>
-
