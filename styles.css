@@ -178,7 +178,7 @@ body{
 .gallery-card p{margin:8px 0 0;color:#c6cfda;font-size:14px}
 
 /* 智能画布 */
-.canvas{background:linear-gradient(to bottom, rgba(7,11,17,.5), rgba(7,11,17,0.35))}
+.canvas{background:linear-gradient(to bottom, rgba(7,11,17,1), rgba(7,11,17,1))}
 .canvas-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
 .canvas-illustration{
     height:220px;
