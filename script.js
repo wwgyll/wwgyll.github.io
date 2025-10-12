@@ -217,7 +217,7 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
 
     let canvas, ctx, drops = [], rafId = null;
     let width = 0, height = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const maxDrops = 200; // 上限
+    const maxDrops = 10; // 上限
     const baseDensity = 0.00012; // 密度（每像素）
     let wind = 0.6; // 风偏移（px/帧，基于 60fps）
 
@@ -247,11 +247,11 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
     }
 
     function spawnDrop(x, y){
-        const speed = 2 + Math.random() * 2; // 垂直速度
+        const speed = 1 + Math.random() * 2; // 垂直速度
         const len = 2 + Math.random() * 6; // 雨滴长度
         const sway = wind + (Math.random() - 0.5) * 0.4; // 轻微风摆
         const thickness = Math.random() * 0.6 + 0.6; // 线条粗细
-        const alpha = 0.1 + Math.random() * 0.2; // 透明度
+        const alpha = 0.05 + Math.random() * 0.2; // 透明度
         return { x, y, speed, len, sway, thickness, alpha };
     }
 

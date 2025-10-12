@@ -83,13 +83,16 @@ a:hover{color:#5ad2ff}
     overflow:hidden;
     background:#0b0f14;
 }
-.particles-canvas{
+
+/*下雨特效，置于页面最前；仍为 pointer-events:none 不拦截交互 */
+ .particles-canvas{
     position:fixed;
     inset:0;
-    z-index:30; /* 置于页面最前；仍为 pointer-events:none 不拦截交互 */
+    z-index:30;  
     pointer-events:none;
     display:block;
-}
+} 
+
 .video-background .video{
     position:absolute;
     top:50%;
