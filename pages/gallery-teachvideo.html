@@ -7,11 +7,115 @@
   <meta name="theme-color" content="#0b0f14">
   <link rel="stylesheet" href="../styles.css">
   <title>视频教程</title>
-  <style>body{margin:24px;font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0f14; color:#e9eef5; line-height:1.6}a{color:#5ad2ff;text-decoration:none}</style>
+  <style>
+    body{margin:0;background:#0b0f14;color:#e9eef5;line-height:1.6}
+    .page
+    {
+      max-width:1200px; margin:0 auto; padding:16px 16px 32px;
+    }
+    .topbar{position:sticky; top:0; z-index:5; padding:10px 0; background:linear-gradient(to bottom, rgba(11,15,20,.95), rgba(11,15,20,.85)); backdrop-filter:saturate(1.1) blur(6px); display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .filter-bar{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .search-input{flex:1 1 220px; min-width:200px; padding:8px 10px; border-radius:999px; border:1px solid rgba(223,228,235,.18); background:rgba(146,162,186,.08); color:#e9eef5; outline:none}
+    .search-input::placeholder{color:#9fb0c4}
+    .filter-btn{border:1px solid rgba(223,228,235,.18); background:rgba(146,162,186,.08); color:#c6cfda; border-radius:999px; padding:6px 12px; cursor:pointer; font:inherit}
+    .filter-btn:hover{background:rgba(146,162,186,.15); color:#fff}
+    .filter-btn.active{background:linear-gradient(135deg,#5ad2ff,#7c5cff); color:#0b0f14; border-color:transparent}
+
+    .asset-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:12px; padding-top:12px}
+    .tile{display:block; border-radius:12px; overflow:hidden; background:rgba(146,162,186,.08); border:1px solid rgba(223,228,235,.12)}
+    .tile:hover{filter:brightness(1.02)}
+    .tile-img{display:block; width:100%; height:auto; object-fit:cover; aspect-ratio:1/1; background:linear-gradient(135deg,#2a2f3a,#171b22)}
+    .tile-caption{padding:8px 10px; font-size:14px; color:#c6cfda; border-top:1px solid rgba(223,228,235,.08)}
+    .hidden{display:none!important}
+
+    @media (max-width:480px){
+      .asset-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const items = [
+        { src:'../assets/artasset.png', href:'../assets/artasset.png', title:'PBR角色Shader', tags:['全部','3D角色'] },
+        { src:'../assets/engine.png', href:'../assets/engine.png', title:'场景Shader', tags:['全部','3D场景'] },
+      ];
+
+      const tags = ['全部','3D角色','3D场景','3D特效','UI','TAWY','其他'];
+
+      const grid = document.getElementById('asset-grid');
+      const bar = document.getElementById('filter-bar');
+      const search = document.getElementById('search-input');
+      let currentTag = '全部';
+      let currentQuery = '';
+
+      // render buttons
+      tags.forEach((t,idx)=>{
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (idx===0 ? ' active' : '');
+        btn.type = 'button';
+        btn.textContent = t;
+        btn.setAttribute('data-filter', t);
+        bar.appendChild(btn);
+      });
+
+      // render tiles
+      items.forEach(it=>{
+        const a = document.createElement('a');
+        a.className = 'tile';
+        a.href = it.href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.setAttribute('data-tags', it.tags.join(','));
+        a.setAttribute('data-title', it.title || '');
+        const img = document.createElement('img');
+        img.className = 'tile-img';
+        img.alt = it.title || '';
+        img.src = it.src;
+        const cap = document.createElement('div');
+        cap.className = 'tile-caption';
+        cap.textContent = it.title || '';
+        a.appendChild(img);
+        a.appendChild(cap);
+        grid.appendChild(a);
+      });
+
+      function applyFilter(tag){
+        const tiles = grid.querySelectorAll('.tile');
+        tiles.forEach(el=>{
+          const arr = (el.getAttribute('data-tags')||'').split(',');
+          const title = (el.getAttribute('data-title')||'').toLowerCase();
+          const matchTag = tag==='全部' || arr.includes(tag);
+          const matchQuery = !currentQuery || title.includes(currentQuery);
+          if(matchTag && matchQuery) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        });
+      }
+
+      bar.addEventListener('click', function(e){
+        const btn = e.target.closest('.filter-btn');
+        if(!btn) return;
+        bar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTag = btn.getAttribute('data-filter');
+        applyFilter(currentTag);
+      });
+
+      function debounce(fn, ms){ let t; return function(){ clearTimeout(t); const a=arguments, c=this; t=setTimeout(()=>fn.apply(c,a), ms); }; }
+      const onSearch = debounce(function(){ currentQuery = (search.value||'').trim().toLowerCase(); applyFilter(currentTag); }, 180);
+      search.addEventListener('input', onSearch);
+
+      applyFilter(currentTag);
+    });
+  </script>
 </head>
 <body>
-  <h1>视频教程</h1>
-  <p>这是一个占位页面。返回 <a href="../index.html">首页</a></p>
+  <div class="page">
+    <div class="topbar">
+      <div id="filter-bar" class="filter-bar" aria-label="分类筛选"></div>
+      <input id="search-input" class="search-input" type="search" placeholder="搜索标题..." enterkeyhint="search" />
+    </div>
+    <div id="asset-grid" class="asset-grid" aria-live="polite"></div>
+  </div>
+
   <script src="../components/floating-dock.js"></script>
   <script src="../script.js"></script>
 </body>
