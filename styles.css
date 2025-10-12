@@ -10,6 +10,10 @@ body{
     line-height:1.6;
 }
 
+/* 全站链接颜色：默认浅灰，悬停浅蓝 */
+a{color:#c6cfda;text-decoration:none}
+a:hover{color:#5ad2ff}
+
 /* 顶部扁平导航 */
 .site-header{
     position:fixed;
@@ -48,7 +52,7 @@ body{
     border-radius:8px;
     transition:background-color .15s ease, color .15s ease;
 }
-.nav a:hover{color:#fff;background-color:rgba(146,162,186,.15)}
+.nav a:hover{color:#5ad2ff;background-color:rgba(146,162,186,.15)}
 .nav a:active{background-color:rgba(146,162,186,.22)}
 
 /* 音乐按钮（扁平风格） */
@@ -255,8 +259,8 @@ body{
 .about-card h3, .contact-card h3{margin:0 0 8px;font-size:18px}
 .about-list{margin:0;padding-left:18px;color:#c6cfda}
 .about-list li{margin:6px 0}
-.contact-card a{color:#5ad2ff;text-decoration:none}
-.contact-card a:hover{text-decoration:underline}
+.contact-card a{color:#c6cfda;text-decoration:none}
+.contact-card a:hover{color:#5ad2ff;text-decoration:underline}
 
 /* 群聊二维码展示 */
 .qr-box{display:inline-flex;flex-direction:column;align-items:center;gap:4px;margin-top:4px;margin-right:12px;vertical-align:top}
