@@ -312,7 +312,7 @@ a:hover{color:#5ad2ff}
     bottom:16px;
     display:flex;
     gap:8px;
-    z-index:20;
+    z-index:60;
 }
 .dock-item{position:relative}
 .dock-btn{
@@ -352,4 +352,6 @@ a:hover{color:#5ad2ff}
 @media (hover: none){
     .dock-item:hover .dock-popover{opacity:0; visibility:hidden; transform:translateY(6px) scale(.98)}
     .dock-item.open .dock-popover{opacity:1; visibility:visible; transform:translateY(0) scale(1)}
+    /* 移动端放大二维码尺寸 */
+    .dock-qr{width:180px}
 }
