@@ -156,24 +156,23 @@
     var dock = wrapper.firstElementChild;
     document.body.appendChild(dock);
 
-    // 交互（独立于站点脚本）
-    var supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-    if(!supportsHover){
-      var items = Array.prototype.slice.call(dock.querySelectorAll('[data-popover]'));
-      function closeAll(){ items.forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('.dock-btn'); if(b){ b.setAttribute('aria-expanded','false'); } }); }
-      items.forEach(function(item){
-        var btn = item.querySelector('.dock-btn');
-        var pop = item.querySelector('.dock-popover');
-        if(!btn || !pop){ return }
-        btn.addEventListener('click', function(e){
-          var isOpen = item.classList.toggle('open');
-          btn.setAttribute('aria-expanded', String(isOpen));
-          if(isOpen){ items.forEach(function(o){ if(o!==item){ o.classList.remove('open'); var ob=o.querySelector('.dock-btn'); if(ob){ ob.setAttribute('aria-expanded','false'); } } }); }
-          e.stopPropagation();
-        });
+    // 交互（独立于站点脚本）：统一改为点击展开，避免某些手机误判 hover 能力
+    var items = Array.prototype.slice.call(dock.querySelectorAll('[data-popover]'));
+    function closeAll(){ items.forEach(function(i){ i.classList.remove('open'); var b=i.querySelector('.dock-btn'); if(b){ b.setAttribute('aria-expanded','false'); } }); }
+    items.forEach(function(item){
+      var btn = item.querySelector('.dock-btn');
+      var pop = item.querySelector('.dock-popover');
+      if(!btn || !pop){ return }
+      btn.addEventListener('click', function(e){
+        var isOpen = item.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        if(isOpen){ items.forEach(function(o){ if(o!==item){ o.classList.remove('open'); var ob=o.querySelector('.dock-btn'); if(ob){ ob.setAttribute('aria-expanded','false'); } } }); }
+        e.stopPropagation();
       });
-      document.addEventListener('click', function(){ closeAll(); });
-    }
+      // 防止点击浮窗内容时被页面 click 关闭
+      pop.addEventListener('click', function(e){ e.stopPropagation(); });
+    });
+    document.addEventListener('click', function(){ closeAll(); });
   }catch(e){ if(window.console){ console.warn('floating-dock 注入失败:', e) } }
 })();
 
