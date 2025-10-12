@@ -335,6 +335,7 @@ a:hover{color:#5ad2ff}
     opacity:0; visibility:hidden; transform:translateY(6px) scale(.98);
     transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
 }
+.dock-item.open .dock-popover{opacity:1; visibility:visible; transform:translateY(0) scale(1)}
 .dock-card{
     background:rgba(15,21,28,.98);
     border:1px solid rgba(223,228,235,.18);
