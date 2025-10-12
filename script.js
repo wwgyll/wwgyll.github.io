@@ -185,38 +185,28 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 
 // 底部悬浮二维码：移动端点击展开/外部点击关闭
-(function(){
+function initFloatingDock(){
     const dock = document.querySelector('.floating-dock');
     if(!dock){return}
-
     const items = Array.from(dock.querySelectorAll('[data-popover]'));
-
+    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
     function closeAll(){ items.forEach(i=>{ i.classList.remove('open'); const btn=i.querySelector('.dock-btn'); if(btn){ btn.setAttribute('aria-expanded','false'); } }); }
-
-    // 点击按钮切换（主要服务于无 hover 的设备）
-    items.forEach(item=>{
-        const btn = item.querySelector('.dock-btn');
-        const pop = item.querySelector('.dock-popover');
-        if(!btn || !pop){return}
-        btn.addEventListener('click', function(e){
-            // 若设备支持 hover，则让 CSS 处理，无需切换
-            const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-            if(supportsHover){ return }
-            const isOpen = item.classList.toggle('open');
-            btn.setAttribute('aria-expanded', String(isOpen));
-            // 互斥展开
-            if(isOpen){
-                items.forEach(other=>{ if(other!==item){ other.classList.remove('open'); const ob=other.querySelector('.dock-btn'); if(ob){ ob.setAttribute('aria-expanded','false'); } }});
-            }
-            e.stopPropagation();
+    if(!supportsHover){
+        items.forEach(item=>{
+            const btn = item.querySelector('.dock-btn');
+            const pop = item.querySelector('.dock-popover');
+            if(!btn || !pop){return}
+            btn.addEventListener('click', function(e){
+                const isOpen = item.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+                if(isOpen){ items.forEach(other=>{ if(other!==item){ other.classList.remove('open'); const ob=other.querySelector('.dock-btn'); if(ob){ ob.setAttribute('aria-expanded','false'); } }}); }
+                e.stopPropagation();
+            });
         });
-    });
+        document.addEventListener('click', function(){ closeAll(); });
+    }
+}
 
-    // 点击外部关闭（仅在无 hover 设备生效）
-    document.addEventListener('click', function(){
-        const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-        if(supportsHover){ return }
-        closeAll();
-    });
-})();
+// 片段加载器逻辑已移除，统一由 /components/floating-dock.js 注入 DOM
+window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
 
