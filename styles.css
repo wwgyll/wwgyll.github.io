@@ -298,6 +298,10 @@ a:hover{color:#5ad2ff}
     .gallery-grid{grid-template-columns:1fr 1fr}
     .canvas-grid{grid-template-columns:1fr}
     .community-grid{grid-template-columns:1fr 1fr}
+    /* 移动端导航优化：单行横向滚动，避免换行拥挤 */
+    .nav{position:static; transform:none; display:flex; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; gap:8px; padding:6px 0}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{margin-left:0; padding:10px 12px; font-size:14px; flex:0 0 auto}
 }
 
 
