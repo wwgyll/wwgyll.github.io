@@ -79,9 +79,16 @@ a:hover{color:#5ad2ff}
 .video-background{
     position:fixed;
     inset:0;
-    z-index:-1;
+    z-index:-2;
     overflow:hidden;
     background:#0b0f14;
+}
+.particles-canvas{
+    position:fixed;
+    inset:0;
+    z-index:30; /* 置于页面最前；仍为 pointer-events:none 不拦截交互 */
+    pointer-events:none;
+    display:block;
 }
 .video-background .video{
     position:absolute;

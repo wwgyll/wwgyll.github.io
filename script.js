@@ -210,3 +210,92 @@ function initFloatingDock(){
 // 片段加载器逻辑已移除，统一由 /components/floating-dock.js 注入 DOM
 window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
 
+// 全屏下雨特效
+(function(){
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(prefersReducedMotion){ return } // 尊重减少动态
+
+    let canvas, ctx, drops = [], rafId = null;
+    let width = 0, height = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const maxDrops = 200; // 上限
+    const baseDensity = 0.00012; // 密度（每像素）
+    let wind = 0.6; // 风偏移（px/帧，基于 60fps）
+
+    function createCanvas(){
+        canvas = document.createElement('canvas');
+        canvas.className = 'particles-canvas';
+        ctx = canvas.getContext('2d');
+        document.body.appendChild(canvas);
+        resize();
+        initRain();
+        start();
+    }
+
+    function resize(){
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        if(ctx){ ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    }
+
+    function initRain(){
+        const targetCount = Math.min(maxDrops, Math.max(80, Math.floor(width * height * baseDensity)));
+        drops = new Array(targetCount).fill(0).map(()=>spawnDrop(Math.random() * width, Math.random() * height));
+    }
+
+    function spawnDrop(x, y){
+        const speed = 2 + Math.random() * 2; // 垂直速度
+        const len = 2 + Math.random() * 6; // 雨滴长度
+        const sway = wind + (Math.random() - 0.5) * 0.4; // 轻微风摆
+        const thickness = Math.random() * 0.6 + 0.6; // 线条粗细
+        const alpha = 0.1 + Math.random() * 0.2; // 透明度
+        return { x, y, speed, len, sway, thickness, alpha };
+    }
+
+    function step(){
+        // 透明淡出旧帧，避免给视频加一层黑色
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // 数值越大，拖影越短
+        ctx.fillRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'source-over';
+
+        ctx.lineCap = 'round';
+        for(let d of drops){
+            d.x += d.sway; // 风偏移
+            d.y += d.speed; // 下落
+
+            // 超出边界则重生
+            if(d.y - d.len > height || d.x < -50 || d.x > width + 50){
+                const startX = Math.random() * width;
+                const startY = -Math.random() * 80; // 顶部上方一点生成
+                Object.assign(d, spawnDrop(startX, startY));
+            }
+
+            // 绘制雨滴（线段）
+            ctx.strokeStyle = `rgba(160, 190, 220, ${d.alpha})`;
+            ctx.lineWidth = d.thickness;
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y - d.len);
+            ctx.lineTo(d.x, d.y);
+            ctx.stroke();
+        }
+        rafId = requestAnimationFrame(step);
+    }
+
+    function start(){ if(!rafId){ rafId = requestAnimationFrame(step); } }
+    function stop(){ if(rafId){ cancelAnimationFrame(rafId); rafId = null; } }
+
+    // 可见性与窗口变化
+    window.addEventListener('resize', function(){ resize(); initRain(); });
+    document.addEventListener('visibilitychange', function(){
+        if(document.visibilityState === 'hidden'){ stop(); }
+        else { start(); }
+    });
+
+    // 若后台低性能网络/设备，可根据连接类型降低密度（可扩展）
+    createCanvas();
+})();
+
