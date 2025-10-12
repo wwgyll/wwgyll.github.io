@@ -280,3 +280,51 @@ body{
 }
 
 
+/* 底部悬浮操作栏（二维码气泡） */
+.floating-dock{
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    display:flex;
+    gap:8px;
+    z-index:20;
+}
+.dock-item{position:relative}
+.dock-btn{
+    width:40px;height:40px;
+    border-radius:30px;
+    border:1px solid rgba(223,228,235,.18);
+    background:rgba(146,162,186,.08);
+    color:#e9eef5;
+    cursor:pointer;
+    font-weight:700;
+    outline:none;
+    display:flex;align-items:center;justify-content:center;
+}
+.dock-btn:hover{background:rgba(146,162,186,.15)}
+.dock-icon{width:20px;height:20px;display:block}
+.dock-popover{
+    position:absolute;
+    right:0; bottom:48px;
+    transform-origin:bottom left;
+    opacity:0; visibility:hidden; transform:translateY(6px) scale(.98);
+    transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+}
+.dock-card{
+    background:rgba(15,21,28,.98);
+    border:1px solid rgba(223,228,235,.18);
+    border-radius:12px;
+    padding:10px;
+    box-shadow:0 12px 28px rgba(0,0,0,.35);
+}
+.dock-qr{width:140px;height:auto;display:block;border-radius:8px}
+.dock-tip{margin:6px 0 0;font-size:12px;color:#c6cfda;text-align:center}
+
+/* 悬停显示（桌面） */
+.dock-item:hover .dock-popover{opacity:1; visibility:visible; transform:translateY(0) scale(1)}
+
+/* 移动端：改为点击展开，悬停无效，由 JS 添加 .open 控制 */
+@media (hover: none){
+    .dock-item:hover .dock-popover{opacity:0; visibility:hidden; transform:translateY(6px) scale(.98)}
+    .dock-item.open .dock-popover{opacity:1; visibility:visible; transform:translateY(0) scale(1)}
+}
