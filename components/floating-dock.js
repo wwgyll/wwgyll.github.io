@@ -163,12 +163,14 @@
       var btn = item.querySelector('.dock-btn');
       var pop = item.querySelector('.dock-popover');
       if(!btn || !pop){ return }
-      btn.addEventListener('click', function(e){
+      function toggle(e){
         var isOpen = item.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(isOpen));
         if(isOpen){ items.forEach(function(o){ if(o!==item){ o.classList.remove('open'); var ob=o.querySelector('.dock-btn'); if(ob){ ob.setAttribute('aria-expanded','false'); } } }); }
-        e.stopPropagation();
-      });
+        if(e){ e.stopPropagation(); e.preventDefault && e.preventDefault(); }
+      }
+      btn.addEventListener('click', toggle);
+      btn.addEventListener('touchend', toggle, { passive:false });
       // 防止点击浮窗内容时被页面 click 关闭
       pop.addEventListener('click', function(e){ e.stopPropagation(); });
     });
