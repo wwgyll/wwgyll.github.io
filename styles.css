@@ -245,6 +245,12 @@ a:hover{color:#5ad2ff}
 
 /* 页脚 */
 .site-footer{padding:24px;text-align:center;color:#9fb0c4}
+.site-footer hr{border:0;border-top:1px solid rgba(230, 233, 238, 0.212)}
+
+/* 可见占位间距 */
+.spacer{display:block;width:100%}
+.spacer-5{height:5em}
+.spacer-2{height:2em}
 
 /* 个人资料与联系方式区块 */
 .about, .contact{
@@ -275,6 +281,7 @@ a:hover{color:#5ad2ff}
 /* 群聊二维码展示 */
 .qr-box{display:inline-flex;flex-direction:column;align-items:center;gap:4px;margin-top:4px;margin-right:12px;vertical-align:top}
 .qr-img{width:120px;max-width:60vw;height:auto;border-radius:8px;border:1px solid rgba(223,228,235,.2);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.qr-img{cursor:pointer}
 .qr-tip{margin:0;color:#c6cfda;font-size:14px;text-align:center}
 
 /* 动态减少偏好处理 */

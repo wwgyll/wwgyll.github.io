@@ -210,6 +210,28 @@ function initFloatingDock(){
 // 片段加载器逻辑已移除，统一由 /components/floating-dock.js 注入 DOM
 window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
 
+// 使联系方式中的二维码图片可点击，打开原图新标签
+(function(){
+    function initClickableQrImages(){
+        const imgs = document.querySelectorAll('.qr-img');
+        imgs.forEach(img=>{
+            if(img.dataset.clickBound){ return }
+            // 若已包裹在链接中，尊重原有跳转
+            if(img.closest && img.closest('a')){ img.dataset.clickBound = '1'; return }
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(){
+                try{
+                    const href = img.dataset.href || img.getAttribute('data-href') || img.currentSrc || img.src;
+                    const target = img.dataset.target || '_blank';
+                    window.open(href, target, 'noopener');
+                }catch(_e){ /* 忽略 */ }
+            });
+            img.dataset.clickBound = '1';
+        });
+    }
+    window.addEventListener('DOMContentLoaded', initClickableQrImages);
+})();
+
 // 全屏下雨特效
 (function(){
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
