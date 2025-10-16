@@ -232,6 +232,43 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
     window.addEventListener('DOMContentLoaded', initClickableQrImages);
 })();
 
+// 图片模态：打开后页面其余区域半透且不可点，右侧提供退出按钮
+(function(){
+    function initImageModal(){
+        const openBtn = document.getElementById('open-image-modal');
+        const modal = document.getElementById('image-modal');
+        const closeBtn = document.getElementById('image-modal-close');
+        if(!openBtn || !modal || !closeBtn){ return }
+
+        function openModal(){
+            modal.setAttribute('aria-hidden', 'false');
+            // 禁止页面滚动
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(){
+            modal.setAttribute('aria-hidden', 'true');
+            // 恢复页面滚动
+            document.body.style.overflow = '';
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+
+        // 按下 ESC 关闭
+        document.addEventListener('keydown', function(e){
+            if(e.key === 'Escape'){ closeModal(); }
+        });
+
+        // 防止点击图片冒泡关闭（我们只允许通过按钮或 ESC 退出）
+        modal.addEventListener('click', function(e){
+            // 点击遮罩不关闭，维持“只能点右侧退出按钮”
+            e.stopPropagation();
+        });
+    }
+    window.addEventListener('DOMContentLoaded', initImageModal);
+})();
+
 // 全屏下雨特效
 (function(){
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

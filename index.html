@@ -48,6 +48,7 @@
             <a class="cta-btn" href="#features">立即探索</a>
             <a class="cta-btn secondary" href="game/game.html" target="_blank" rel="noopener">Demo</a>
             <a class="cta-btn secondary" href="http://116.62.71.67:3000" rel="noopener" target="_blank">GitPage</a>
+            <button class="cta-btn secondary" id="open-image-modal" type="button">查看图片</button>
         </div>
     </main>
 
@@ -191,6 +192,13 @@
     <script src="components/floating-dock.js"></script>
 
 
+    
+
+    <!-- 居中图片模态层 -->
+    <div class="image-modal" id="image-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <img class="image-modal-img" src="assets/IMG_1292.JPG" alt="打赏图">
+        <button type="button" class="image-modal-close" id="image-modal-close" aria-label="退出并关闭">退出</button>
+    </div>
     
 
     <footer class="site-footer" id="footer">
