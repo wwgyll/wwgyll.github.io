@@ -373,6 +373,9 @@ a:hover{color:#5ad2ff}
     transition:opacity .18s ease, visibility .18s ease;
 }
 .image-modal[aria-hidden="false"]{opacity:1; visibility:visible}
+.image-modal-content{
+    position:relative;
+}
 .image-modal-img{
     max-width:min(86vw, 820px);
     max-height:80vh;
@@ -381,17 +384,16 @@ a:hover{color:#5ad2ff}
     border:1px solid rgba(223,228,235,.18);
 }
 .image-modal-close{
-    position:fixed;
-    right:40px;
-    top:8%;
-    transform:translateY(-50%);
+    position:absolute;
+    right:8px;
+    top:8px;
     padding:10px 14px;
     border-radius:999px;
     border:1px solid rgba(223,228,235,.18);
     background:rgba(146,162,186,.12);
     color:#e9eef5;
     cursor:pointer;
-    z-index:81;
+    z-index:1;
 }
 .image-modal-close:hover{background:rgba(146,162,186,.18)}
 .image-modal-close:active{background:rgba(146,162,186,.26)}
