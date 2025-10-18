@@ -82,29 +82,7 @@
 
             <p class="section-desc">最幸福的事莫过于坦然面对每一个挑战并从中成长。</p>
 
-            <div class="carousel-viewport">
-                <div class="carousel-track">
-                     <div class="carousel-slide is-active" data-title="犬夜叉">
-                         <a class="carousel-link" href="pages/gallery-artasset.html" target="_blank" rel="noopener">
-                             <img src="https://th.bing.com/th/id/R.9ffa2cc637bee16ab353c78a4a9b5730?rik=tLgedATWSi75lQ&pid=ImgRaw&r=0" alt="美术资产" class="carousel-img">
-                         </a>
-                     </div>
-                     <div class="carousel-slide" data-title="鬼灭之刃">
-                         <a class="carousel-link" href="pages/gallery-engineditor.html" target="_blank" rel="noopener">
-                             <img src="https://th.bing.com/th/id/R.6a3984201f8613797ee77b68669f696e?rik=EPxbUmd%2bqjrDWg&riu=http%3a%2f%2fi2.hdslb.com%2fbfs%2farchive%2f446deeb0335d24dc5e9b6365b95bec559583a021.jpg&ehk=y9PPuIEqUfPtb99xzRL%2bZbWcchW%2b%2fHNP29cJui5WQuU%3d&risl=&pid=ImgRaw&r=0g" alt="引擎插件" class="carousel-img">
-                         </a>
-                     </div>
-                     <div class="carousel-slide" data-title="荒野大镖客2">
-                         <a class="carousel-link" href="pages/gallery-shaders.html" target="_blank" rel="noopener">
-                             <img src="https://th.bing.com/th/id/R.ed50027b36b16b1f3a2730e8e4b62de4?rik=M9HuZWu3sYzABw&pid=ImgRaw&r=0" alt="着色器示例" class="carousel-img">
-                         </a>
-                     </div>
-                </div>
-                <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>
-                <button class="carousel-btn next" type="button" aria-label="下一张">›</button>
-                <div class="carousel-dots" role="tablist" aria-label="轮播指示器"></div>
-                 <div class="carousel-caption" aria-live="polite"></div>
-            </div>
+            <div id="carousel-mount"></div>
 
             <span class="spacer spacer-2" aria-hidden="true"></span>
 
@@ -247,6 +225,7 @@
 
     
 
+    <script src="components/carousel.js"></script>
     <!-- 居中图片模态层 -->
     <div class="image-modal" id="image-modal" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="image-modal-content">
