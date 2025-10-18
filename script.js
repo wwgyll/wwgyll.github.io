@@ -232,6 +232,81 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
     window.addEventListener('DOMContentLoaded', initClickableQrImages);
 })();
 
+// 简易轮播
+(function(){
+    function initCarousel(){
+        const viewport = document.querySelector('.carousel-viewport');
+        if(!viewport){ return }
+        const track = viewport.querySelector('.carousel-track');
+        const slides = Array.from(viewport.querySelectorAll('.carousel-slide'));
+        const prevBtn = viewport.querySelector('.prev');
+        const nextBtn = viewport.querySelector('.next');
+        const dotsWrap = viewport.querySelector('.carousel-dots');
+        const caption = viewport.querySelector('.carousel-caption');
+        if(!track || slides.length === 0){ return }
+
+        let index = 0;
+        let timer = null;
+
+        function update(){
+            const offset = -index * 100;
+            track.style.transform = `translateX(${offset}%)`;
+            // 更新指示器
+            if(dotsWrap){
+                dotsWrap.querySelectorAll('button').forEach((b,i)=>{
+                    b.setAttribute('aria-selected', String(i===index));
+                });
+            }
+            // 更新标题
+            if(caption){
+                const title = slides[index].getAttribute('data-title') || '';
+                caption.textContent = title;
+            }
+        }
+
+        function go(to){
+            const len = slides.length;
+            index = (to + len) % len;
+            update();
+        }
+
+        function next(){ go(index+1); }
+        function prev(){ go(index-1); }
+
+        // 构建指示器
+        if(dotsWrap){
+            slides.forEach((_,i)=>{
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.setAttribute('aria-label', `第 ${i+1} 张`);
+                b.setAttribute('aria-selected', i===0 ? 'true' : 'false');
+                b.addEventListener('click', ()=>go(i));
+                dotsWrap.appendChild(b);
+            });
+        }
+
+        // 绑定事件
+        if(prevBtn){ prevBtn.addEventListener('click', prev); }
+        if(nextBtn){ nextBtn.addEventListener('click', next); }
+
+        // 自动播放（可见时）
+        function start(){ if(timer) return; timer = setInterval(next, 3500); }
+        function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+        viewport.addEventListener('mouseenter', stop);
+        viewport.addEventListener('mouseleave', start);
+        document.addEventListener('visibilitychange', function(){
+            if(document.visibilityState === 'hidden'){ stop(); } else { start(); }
+        });
+
+        // 响应式：窗口变化时确保位置正确
+        window.addEventListener('resize', update);
+
+        update();
+        start();
+    }
+    window.addEventListener('DOMContentLoaded', initCarousel);
+})();
+
 // 图片模态：打开后页面其余区域半透且不可点，右侧提供退出按钮
 (function(){
     function initImageModal(){
