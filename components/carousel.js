@@ -19,6 +19,13 @@
           + '        <img src="https://th.bing.com/th/id/R.ed50027b36b16b1f3a2730e8e4b62de4?rik=M9HuZWu3sYzABw&pid=ImgRaw&r=0" alt="着色器示例" class="carousel-img">\n'
           + '      </a>\n'
           + '    </div>\n'
+
+          + '    <div class="carousel-slide" data-title="龙珠">\n'
+          + '      <a class="carousel-link" href="pages/gallery-shaders.html" target="_blank" rel="noopener">\n'
+          + '        <img src="https://tse2.mm.bing.net/th/id/OIP.TzKJnoHHlyP3BkWjSemO5AHaEo?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="着色器示例" class="carousel-img">\n'
+          + '      </a>\n'
+          + '    </div>\n'
+
           + '  </div>\n'
           + '  <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>\n'
           + '  <button class="carousel-btn next" type="button" aria-label="下一张">›</button>\n'
