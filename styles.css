@@ -236,8 +236,8 @@ a:hover{color:#5ad2ff}
 /* 覆盖先前的左对齐设置，使社区卡片文本回到居中 */
 .community-card, .community-card p{ text-align:center }
 .container{
-    /* max-width:1080px; */
-    max-width: 75%;
+    max-width:1080px;
+    /* max-width: 75%; */
     margin:0 auto;
     padding:48px 24px 72px;
 }
