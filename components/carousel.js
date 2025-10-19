@@ -26,6 +26,13 @@
           + '      </a>\n'
           + '    </div>\n'
 
+          
+          + '    <div class="carousel-slide" data-title="黑神话悟空">\n'
+          + '      <a class="carousel-link" href="pages/cg-showang.html" target="_blank" rel="noopener">\n'
+          + '        <img src="https://pic2.zhimg.com/v2-09c19644d62018dd36cf2f5b460d2469_1440w.jpg" alt="黑神话悟空" class="carousel-img">\n'
+          + '      </a>\n'
+          + '    </div>\n'
+
           + '  </div>\n'
           + '  <button class="carousel-btn prev" type="button" aria-label="上一张">‹</button>\n'
           + '  <button class="carousel-btn next" type="button" aria-label="下一张">›</button>\n'
