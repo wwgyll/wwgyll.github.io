@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="stylesheet" href="../styles.css">
-   <style>body{margin:24px;font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0f14; color:#e9eef5; line-height:1.6}a{color:#5ad2ff;text-decoration:none}</style>
+    <style>body{margin:24px;font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0f14; color:#e9eef5; line-height:1.6}a{color:#5ad2ff;text-decoration:none}</style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -54,12 +54,12 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/game.loader.js";
+      var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/game.data",
-        frameworkUrl: buildUrl + "/game.framework.js",
-        codeUrl: buildUrl + "/game.wasm",
+        dataUrl: buildUrl + "/Build.data",
+        frameworkUrl: buildUrl + "/Build.framework.js",
+        codeUrl: buildUrl + "/Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "TawyGame",
         productName: "MiniGame02",
@@ -100,8 +100,8 @@
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "1200px";
-        canvas.style.height = "750px";
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
@@ -125,7 +125,5 @@
       document.body.appendChild(script);
 
     </script>
-    <script src="../components/floating-dock.js"></script>
-    <script src="../script.js"></script>
   </body>
 </html>
