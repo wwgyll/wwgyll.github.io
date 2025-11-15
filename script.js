@@ -1,5 +1,8 @@
-// 年份
-document.getElementById('year').textContent = new Date().getFullYear();
+// 年份（容错：元素不存在时跳过）
+(function(){
+    const yearEl = document.getElementById('year');
+    if(yearEl){ yearEl.textContent = new Date().getFullYear(); }
+})();
 
 // 低带宽 / 用户偏好处理
 (function(){
@@ -431,5 +434,133 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
 
     // 若后台低性能网络/设备，可根据连接类型降低密度（可扩展）
     createCanvas();
+})();
+
+// TAPackage 下载页逻辑（仅在该页面存在时运行）
+(function(){
+    function isTaDownloadPage(){
+        return document.body && document.body.getAttribute('data-page') === 'ta-download';
+    }
+    if(!isTaDownloadPage()){ return }
+
+    window.addEventListener('DOMContentLoaded', function(){
+        const PRODUCT_VERSION = "1.0.0";           // 展示用版本
+        const BLENDER_VERSION = "4.2.3";           // CDN 文件版本
+        const MAJOR_MINOR = BLENDER_VERSION.split(".").slice(0, 2).join(".");
+        const DIR = "Blender" + MAJOR_MINOR;
+        const CDN = "https://download.blender.org/release/" + DIR + "/";
+        const GIT_URL = "https://github.com/wwgyll/wwgyll.github.io";
+        const ARCHIVE_URL = "http://26.26.26.1/Unity/TAPackage.zip";
+        const INSTALLER_URL = "http://26.26.26.1/Unity/TAPackage.unitypackage";
+
+        const elBtn = document.getElementById("btn-primary");
+        const elBtnText = document.getElementById("btn-text");
+        const elPlatform = document.getElementById("platform");
+        const elPackage = document.getElementById("package");
+        const elVer = document.getElementById("ver");
+        const elSizeTop = document.getElementById("sizeTop");
+        const elSize = document.getElementById("size");
+        const elBuildDate = document.getElementById("build-date");
+        const elTogglePlatforms = document.getElementById("toggle-platforms");
+        const elPlatformPanel = document.getElementById("platform-panel");
+
+        if(!elBtn || !elBtnText || !elPlatform || !elPackage){ return }
+
+        elVer.textContent = PRODUCT_VERSION;
+
+        // 其它版本面板开关
+        if(elTogglePlatforms && elPlatformPanel){
+            elTogglePlatforms.addEventListener("click", () => {
+                const hidden = elPlatformPanel.hasAttribute("hidden");
+                if (hidden) elPlatformPanel.removeAttribute("hidden");
+                else elPlatformPanel.setAttribute("hidden", "");
+            });
+        }
+
+        // 构建日期（展示用途）
+        (function setBuildDate() {
+            if(!elBuildDate){ return }
+            try {
+                const d = new Date();
+                const month = d.toLocaleString('zh-CN', { month: 'long' });
+                elBuildDate.textContent = month + " " + d.getDate() + ", " + d.getFullYear();
+            } catch (e) {
+                elBuildDate.textContent = "";
+            }
+        })();
+
+        function detectPlatform() {
+            return "windows-x64";
+        }
+        function guessDefaultPackage() {
+            return "installer";
+        }
+        function fileName(platform, pkg) {
+            const base = "blender-" + BLENDER_VERSION + "-";
+            if (pkg === "git") return "";
+            if (pkg === "installer") return base + "windows-x64.msi";
+            if (pkg === "archive" || pkg === "recommended") return base + "windows-x64.zip";
+            return base + "windows-x64.msi";
+        }
+        function humanSize(platform, pkg) {
+            return pkg === "installer" ? "260 MB" : (pkg === "archive" ? "290 MB" : "—");
+        }
+        function labelOf(platform, pkg) {
+            const platformLabel = "Unity 2022";
+            const pkgLabel = pkg === "installer" ? "Package" : (pkg === "archive" ? "压缩包" : (pkg === "git" ? "Git链接" : "推荐"));
+            return platformLabel + " · " + pkgLabel;
+        }
+        function update(primaryPlatform, primaryPackage) {
+            if (primaryPackage === "git") {
+                elBtnText.textContent = "前往 TAPackage —————————— Git 仓库";
+                elBtn.onclick = () => window.open(GIT_URL, "_blank", "noopener");
+                if (elSizeTop) elSizeTop.textContent = "—";
+                if (elSize) elSize.textContent = "—";
+                return;
+            }
+            if (primaryPackage === "archive") {
+                const href = ARCHIVE_URL;
+                elBtnText.textContent = "下载 TAPackage " + PRODUCT_VERSION + " · " + labelOf(primaryPlatform, primaryPackage);
+                elBtn.onclick = () => window.open(href, "_blank", "noopener");
+                const sizeStr = humanSize(primaryPlatform, primaryPackage);
+                if (elSizeTop) elSizeTop.textContent = sizeStr;
+                if (elSize) elSize.textContent = sizeStr;
+                return;
+            }
+            if (primaryPackage === "installer") {
+                const href = INSTALLER_URL;
+                elBtnText.textContent = "下载 TAPackage " + PRODUCT_VERSION + " · " + labelOf(primaryPlatform, primaryPackage);
+                elBtn.onclick = () => window.open(href, "_blank", "noopener");
+                const sizeStr = humanSize(primaryPlatform, primaryPackage);
+                if (elSizeTop) elSizeTop.textContent = sizeStr;
+                if (elSize) elSize.textContent = sizeStr;
+                return;
+            }
+            const fn = fileName(primaryPlatform, primaryPackage);
+            const href = CDN + fn;
+            elBtnText.textContent = "下载 TAPackage " + PRODUCT_VERSION + " · " + labelOf(primaryPlatform, primaryPackage);
+            elBtn.onclick = () => window.open(href, "_blank", "noopener");
+            const sizeStr = humanSize(primaryPlatform, primaryPackage);
+            if (elSizeTop) elSizeTop.textContent = sizeStr;
+            if (elSize) elSize.textContent = sizeStr;
+        }
+
+        // 初始化
+        const detected = detectPlatform();
+        elPlatform.value = detected;
+        const guessed = guessDefaultPackage(detected);
+        elPackage.value = guessed;
+        update(detected, guessed);
+
+        elPlatform.addEventListener("change", () => {
+            const p = elPlatform.value;
+            const g = guessDefaultPackage(p);
+            elPackage.value = g;
+            update(p, g);
+        });
+        elPackage.addEventListener("change", () => {
+            update(elPlatform.value, elPackage.value);
+        });
+    });
 })();
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0f14">
+    <title>TAPackage 下载</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body data-page="ta-download">
+    <!-- 顶部导航（截图样式） -->
+    <div class="topbar" role="navigation" aria-label="主导航">
+        <div class="topbar-inner">
+            <a href="#">下载</a>
+            <span>›</span>
+            <a href="http://tawy.wang" target="_blank" rel="noopener">插件说明</a>
+            <a href="../index.html" target="_blank" rel="noopener">回到首页</a>
+        </div>
+    </div>
+
+    <!-- 全宽英雄区 -->
+    <section class="hero-banner" id="download">
+        <div class="hero-content" aria-live="polite">
+            <h1 class="hero-title">美术创作自由</h1>
+            <button id="btn-primary" class="primary-btn" type="button" aria-label="下载 TAPackage">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 3a1 1 0 0 1 1 1v8.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4.004 4.004a1.5 1.5 0 0 1-2.122 0L6.577 11.707a1 1 0 0 1 1.414-1.414L10.293 12.6V4a1 1 0 0 1 1-1z">
+                    </path>
+                    <path
+                        d="M4 16a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H6v2h12v-2h-1a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z">
+                    </path>
+                </svg>
+                <span id="btn-text">下载 TAPackage</span>
+            </button>
+            <div class="hero-info">
+                <span>Windows</span>
+                <span> · </span>
+                <span>安装</span>
+                <span> · </span>
+                <span>v<span id="ver"></span> 版本</span>
+            </div>
+            <div class="hero-subinfo"><span id="sizeTop">—</span> · <span id="build-date"></span></div>
+            <div class="hero-actions">
+                <button id="toggle-platforms" class="dropdown-btn" type="button">下载类型 ▾</button>
+            </div>
+            <div id="platform-panel" class="platform-panel" hidden>
+                <div class="note" id="file-info">TAPackage 下载</div>
+                <div class="selects" role="group" aria-label="选择平台和安装包类型">
+                    <div class="select">
+                        <label class="note" for="platform">平台</label>
+                        <select id="platform" aria-label="平台">
+                            <option value="windows-x64">Windows x64</option>
+                        </select>
+                    </div>
+                    <div class="select">
+                        <label class="note" for="package">安装包</label>
+                        <select id="package" aria-label="安装包类型">
+                            <option value="recommended">推荐</option>
+                             <option value="installer">Unity包</option>
+                             <option value="archive">压缩包</option>
+                             <option value="git">Git链接</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="meta">
+                    <span class="pill" id="ver-pill">版本 <strong id="ver"></strong></span>
+                    <span class="pill">大小 <span id="size">—</span></span>
+                    <a class="pill" id="checksum-toggle" href="http://tawy.wang" target="_blank" rel="noopener">加入QQ群</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="wrap">
+
+        <section class="sec" id="req">
+            <h2>推荐工作环境</h2>
+            <div class="panel">
+                <ul class="list">
+                    <li>· Windows 10/11（64 位）</li>
+                    <li>· 8 GB 内存（推荐 16 GB+）</li>
+                    <li>· 支持 OpenGL 4.3/Vulkan 的 GPU（推荐 6 GB+ 显存）</li>
+                    <li>· 2 GB 可用磁盘空间</li>
+                </ul>
+                <p class="muted">详细需求与兼容性请参考 <a href="http://tawy.wang" target="_blank"
+                        rel="noopener">官方说明</a>。</p>
+            </div>
+        </section>
+
+        <footer class="page-foot">
+            <p>© <span id="year"></span> <a href="http://tawy.wang/" rel="noopener" > Tawy 个人美术资源网 </a>  丨  <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"> 皖ICP备2025101370号-1</a> 丨 <a href="https://beian.mps.gov.cn/#/query/webSearch?code=34010202602082" rel="noreferrer" target="_blank"><img src="../assets/beian.png" alt="公安备案" class="beian-icon">皖公网安备34010202602082号</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="../script.js"></script>
+
+    <script src="../components/floating-dock.js"></script>
+</body>
+
+</html>
