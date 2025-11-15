@@ -448,10 +448,10 @@ window.addEventListener('DOMContentLoaded', function(){ initFloatingDock(); });
         const BLENDER_VERSION = "4.2.3";           // CDN 文件版本
         const MAJOR_MINOR = BLENDER_VERSION.split(".").slice(0, 2).join(".");
         const DIR = "Blender" + MAJOR_MINOR;
-        const CDN = "https://download.blender.org/release/" + DIR + "/";
-        const GIT_URL = "https://github.com/wwgyll/wwgyll.github.io";
-        const ARCHIVE_URL = "http://26.26.26.1/Unity/TAPackage.zip";
-        const INSTALLER_URL = "http://26.26.26.1/Unity/TAPackage.unitypackage";
+        const CDN = "http://tawy.wang:8080/tawy/" + DIR + "/";
+        const GIT_URL = "https://cnb.cool/TawyGameStudy/TAPackage";
+        const ARCHIVE_URL = "http://tawy.wang:8080/tawy/TAPackage.zip";
+        const INSTALLER_URL = "http://tawy.wang:8080/tawy/TAPackage.unitypackage";  
 
         const elBtn = document.getElementById("btn-primary");
         const elBtnText = document.getElementById("btn-text");
