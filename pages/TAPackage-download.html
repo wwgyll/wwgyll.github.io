@@ -7,7 +7,7 @@
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#0b0f14">
     <title>TAPackage 下载</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles.css" id="main-css">
 </head>
 
 <body data-page="ta-download">
@@ -69,7 +69,7 @@
                 <div class="meta">
                     <span class="pill" id="ver-pill">版本 <strong id="ver"></strong></span>
                     <span class="pill">大小 <span id="size">—</span></span>
-                    <a class="pill" id="checksum-toggle" href="http://tawy.wang" target="_blank" rel="noopener">加入QQ群</a>
+                    <a class="pill" id="checksum-toggle" href="https://qm.qq.com/q/zkLIp4lEUq" target="_blank" rel="noopener">加入QQ群</a> 
                 </div>
             </div>
         </div>
@@ -95,6 +95,69 @@
             <p>© <span id="year"></span> <a href="http://tawy.wang/" rel="noopener" > Tawy 个人美术资源网 </a>  丨  <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"> 皖ICP备2025101370号-1</a> 丨 <a href="https://beian.mps.gov.cn/#/query/webSearch?code=34010202602082" rel="noreferrer" target="_blank"><img src="../assets/beian.png" alt="公安备案" class="beian-icon">皖公网安备34010202602082号</a></p>
         </footer>
     </div>
+
+    <script>
+        (function(){
+            function showWarn(msg){
+                if(document.getElementById('net-warn')) return;
+                var bar = document.createElement('div');
+                bar.id = 'net-warn';
+                bar.setAttribute('role', 'alert');
+                bar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#2b2f36;color:#ffb4a1;padding:8px 12px;font-size:14px;border-bottom:1px solid #3a3f47;text-align:center';
+                bar.textContent = msg + '（请刷新或检查服务器 MIME 设置）';
+                document.body.appendChild(bar);
+            }
+            function applyCssFallback(){
+                if(document.getElementById('css-fallback')) return;
+                var style = document.createElement('style');
+                style.id = 'css-fallback';
+                style.textContent =
+                    'body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#e9eef5;background:#0b0f14;line-height:1.6}' +
+                    '.topbar{position:fixed;top:0;left:0;right:0;padding:8px 12px;background:#11151d;border-bottom:1px solid #0c1118;z-index:20}' +
+                    '.topbar-inner{display:flex;gap:12px;align-items:center;height:44px;color:#c6cfda;overflow-x:auto}' +
+                    '.topbar-inner a{color:#c6cfda;text-decoration:none;white-space:nowrap}' +
+                    '.hero-banner{padding-top:64px;min-height:400px;display:flex;align-items:center;justify-content:center;text-align:center;background:#0b0f14}' +
+                    '.hero-content{max-width:780px;margin:0 16px}' +
+                    '.hero-title{font-size:40px;margin:18px 0 16px}' +
+                    '.primary-btn{border:0;border-radius:10px;padding:12px 16px;background:#3d8bff;color:#081225;font-weight:700;box-shadow:0 4px 0 #1f5ed1}' +
+                    '.wrap{max-width:1120px;margin:0 auto;padding:16px}' +
+                    '.panel{background:#121823;border:1px solid #1b2431;border-radius:12px;padding:16px}' +
+                    '.note,.muted{color:#b8c1ce}' +
+                    '.pill{display:inline-block;border:1px solid #1b2431;border-radius:999px;padding:4px 8px;color:#b8c1ce}' +
+                    'footer.page-foot{margin:24px 0 16px;color:#6a7485;text-align:center}' +
+                    '.beian-icon{height:20px;vertical-align:text-bottom;margin-right:4px}';
+                document.head.appendChild(style);
+                showWarn('样式未能加载，已使用降级样式');
+            }
+            function cssLikelyLoaded(){
+                try{
+                    var c = getComputedStyle(document.body).backgroundColor;
+                    return c && c !== 'rgba(0, 0, 0, 0)' && c !== 'transparent' && c !== 'rgb(255, 255, 255)';
+                }catch(e){ return false; }
+            }
+            function checkCss(){
+                var l = document.getElementById('main-css');
+                var timer = setTimeout(function(){
+                    if(!cssLikelyLoaded()){ applyCssFallback(); }
+                }, 1200);
+                if(l){
+                    l.addEventListener('error', function(){ clearTimeout(timer); applyCssFallback(); });
+                }
+            }
+            function checkJs(){
+                setTimeout(function(){
+                    if(typeof window.initFloatingDock !== 'function'){
+                        showWarn('脚本未能加载，部分交互不可用');
+                    }
+                }, 1200);
+            }
+            if(document.readyState === 'loading'){
+                document.addEventListener('DOMContentLoaded', function(){ checkCss(); checkJs(); });
+            }else{
+                checkCss(); checkJs();
+            }
+        })();
+    </script>
 
     <script src="../script.js"></script>
 
